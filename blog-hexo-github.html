@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="zh_cn" itemscope itemtype="http://schema.org/Person">
+<head>
+            <meta charset="utf-8">
+        <!-- Site Meta Data -->
+        <title>Hexo 和 Github 搭建博客</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="邱彼郑楠">
+
+        <link rel="shortcut icon" href="/extras/favicon-32x32.png">
+
+        <!-- schema.org -->
+        <meta itemprop="name" content="小崔说数">
+        <meta itemprop="image" content="">
+        <meta itemprop="description" content="">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+        <!-- Style Meta Data -->
+        <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css"/>
+
+        <!-- Feed Meta Data -->
+
+        <!-- Weibo Feed -->
+        <meta name="weibo:card" content="summary">
+        <meta name="weibo:site" content="shushuofengyun">
+        <meta name="weibo:image" content="">
+        
+        <!-- MathJax Supported -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+        <script>
+            MathJax.Hub.Config({
+                config: ["MMLorHTML.js"],
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true
+                },
+                TeX: {
+                    extensions: ["AMSmath.js", "AMSsymbols.js"],
+                    TagSide: "right",
+                    TagIndent: ".8em",
+                    MultLineWidth: "85%",
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                },
+                unicode: {
+                    fonts: "STIXGeneral,'Arial Unicode MS'"
+                }
+            },
+            displayAlign: "center",
+            showProcessingMessages: false,
+            messageStyle: 'none'
+            });
+        </script>
+
+        <!-- Prohibit F12, Ctrl+Shift+I, Ctrl+U -->
+        <script type="text/javascript">
+            document.onkeydown = function () {
+                // keyCode = 123 is F12
+                // keyCode = 73 is Ctrl + Shift + I
+                // keyCode = 85 is Ctrl + U
+                if (window.event && (window.event.keyCode == 123 || window.event.keyCode == 73 || window.event.keyCode == 85)) {
+                    event.keyCode = 0;
+                    event.returnValue = false;
+                    return false;
+                }
+            };
+        </script>
+
+    <meta name="weibo:creator" content="shushuofengyun">
+    <meta name="weibo:url" content="/blog-hexo-github.html">
+    <meta name="weibo:title" content="小崔说数 ~ Hexo 和 Github 搭建博客">
+    <meta name="weibo:description" content="因为在学习数据结构与算法的过程中，老师要求刷 LeetCode 题目并撰写博客，于是开始了 CSDN 博客之旅。但是个人并不喜欢 CSDN 的博客，而自己搭建一个网站服务能力有限，便想搭建一个静态网站，Github 和 Hexo 便是我的首次选择。这篇博客记录了搭建博客的过程。 Hexo 什么是 Hexo？ Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown (或其他渲染引擎) 解析文章，在几秒内，即可利用靓丽的主题生成静态网页。 安装前提 访问 Node.js 的官网下载需要的版本(版本不低于 8.10，建议使用 10.0 及以上版本)， 访问 Git 的官网下载需要的版本。 检验软件是否安装成功 …">
+
+    <!-- Facebook Meta Data -->
+    <meta property="og:title" content="小崔说数 ~ Hexo 和 Github 搭建博客"/>
+    <meta property="og:description" content="因为在学习数据结构与算法的过程中，老师要求刷 LeetCode 题目并撰写博客，于是开始了 CSDN 博客之旅。但是个人并不喜欢 CSDN 的博客，而自己搭建一个网站服务能力有限，便想搭建一个静态网站，Github 和 Hexo 便是我的首次选择。这篇博客记录了搭建博客的过程。 Hexo 什么是 Hexo？ Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown (或其他渲染引擎) 解析文章，在几秒内，即可利用靓丽的主题生成静态网页。 安装前提 访问 Node.js 的官网下载需要的版本(版本不低于 8.10，建议使用 10.0 及以上版本)， 访问 Git 的官网下载需要的版本。 检验软件是否安装成功 …"/>
+    <meta property="og:image" content=""/>
+</head>
+
+<!-- Prohibit copy and right click -->
+<body oncontextmenu="return false" onselectstart="return false">
+<!-- Sidebar -->
+<aside>
+    <!--<center><a href=""><img id="avatar" src=""></a></center>-->
+    <h1>小崔说数</h1>
+        <p>数学知识分享和Python学习</p>
+    <br>
+
+    <nav class="nav">
+        <ul class="list-bare">
+
+                <li><a class="nav__link" href="">Home</a></li>
+                <li><a class="nav__link" href="/pages/about.html">About</a></li>
+                <li><a class="nav__link" href="/categories.html">Categories</a></li>
+
+
+        </ul>
+    </nav>
+
+    <p class="social">
+                <a href="https://github.com/KristopherTsui" target="_blank"><img
+                        src="/theme/images/icons/github.png"></a>
+                <a href="https://weibo.com/shushuofengyun" target="_blank"><img
+                        src="/theme/images/icons/weibo.png"></a>
+    </p>
+
+
+        <h2 class="blog_roll_link"><br/>BLOGROLLS</h2>
+        <ul class="navbar">
+                <li><a href="http://www.amss.ac.cn">中国科学院数学与系统科学研究院</a></li>
+                <li><a href="http://ymsc.tsinghua.edu.cn/cn">丘成桐数学科学中心</a></li>
+        </ul>
+
+</aside>
+
+<!-- Content -->
+<article>
+    <section id="content">
+        <article>
+            <h2 class="post_title post_detail"><a href="/blog-hexo-github.html" rel="bookmark"
+                                                  title="Permalink to Hexo 和 Github 搭建博客">Hexo 和 Github 搭建博客</a></h2>
+            <div class="entry-content blog-post">
+                <p>因为在学习数据结构与算法的过程中，老师要求刷 LeetCode 题目并撰写博客，于是开始了 CSDN 博客之旅。但是个人并不喜欢 CSDN 的博客，而自己搭建一个网站服务能力有限，便想搭建一个静态网站，Github 和 Hexo 便是我的首次选择。这篇博客记录了搭建博客的过程。</p>
+<h2>Hexo</h2>
+<h3>什么是 Hexo？</h3>
+<p><a href="https://hexo.io/zh-cn/docs/">Hexo</a> 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown (或其他渲染引擎) 解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<h3>安装前提</h3>
+<p>访问 Node.js 的<a href="https://nodejs.org/en/download/">官网</a>下载需要的版本(版本不低于 8.10，建议使用 10.0 及以上版本)，</p>
+<p>访问 Git 的<a href="https://git-scm.com/download/win">官网</a>下载需要的版本。</p>
+<p>检验软件是否安装成功：</p>
+<div style="text-align: center;">
+<img src="https://s1.ax1x.com/2020/04/08/Gh85mq.png" alt="软件版本" title="软件版本" />
+</div>
+
+<h3>安装 Hexo</h3>
+<p>所有必备的应用程序安装完成后，即可使用 npm 安装 Hexo。</p>
+<div class="highlight"><pre><span></span><code><span class="err">npm install -g hexo-cli</span>
+</code></pre></div>
+
+
+<p>安装 hexo 部署到 git page 的 deployer。</p>
+<div class="highlight"><pre><span></span><code><span class="err">npm install hexo-deployer-git --save</span>
+</code></pre></div>
+
+
+<h3>Hexo 初始化</h3>
+<p>首先，进行初始化</p>
+<div class="highlight"><pre><span></span><code><span class="err">hexo init</span>
+</code></pre></div>
+
+
+<p>结果发现执行错误：</p>
+<div style="text-align: center;">
+<img src="https://s1.ax1x.com/2020/04/09/G4vnHK.png" alt="执行错误" title="执行错误" />
+</div>
+
+<p>查阅相关信息，发现是 powershell 的<a href="https://docs.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7">执行策略</a>处于 Restricted 状态，以管理员身份运行 powershell 更改 powershell 的执行策略如下：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">RemoteSigned</span>
+</code></pre></div>
+
+
+<div style="text-align: center;">
+<img src="https://s1.ax1x.com/2020/04/09/G4v19H.png" alt="更改执行策略" title="更改执行策略" />
+</div>
+
+<p>然后，继续初始化。安装完成后，将会在指定文件夹中新建所需要的文件。目录如下：</p>
+<div style="text-align: center;">
+<img src="https://s1.ax1x.com/2020/04/09/G4v6uq.png" alt="初始化目录" title="初始化目录" />
+</div>
+
+<h3>查看效果</h3>
+<p>执行以下命令，执行完后即可登录 http://localhost:4000/ 查看效果</p>
+<div class="highlight"><pre><span></span><code><span class="err">hexo generate</span>
+<span class="err">hexo server</span>
+</code></pre></div>
+
+
+<div style="text-align: center;">
+<img src="https://s1.ax1x.com/2020/04/09/G4v4C4.png" alt="hexo博客" title="hexo博客" />
+</div>
+
+<h2>Github Pages</h2>
+<p>现在，已经完成了本地博客的搭建，我们只能通过本地连接才能查看博客。现在，我们要将博客部署到 Github Pages 上，实现网络上的访问。</p>
+<p>首先，登录上我的 Github 账户。以 <code>用户名.github.io</code> 为项目名创建项目代码库。</p>
+<p>在测试连接 GitHub 的过程中，出现了错误：</p>
+<div style="text-align: center;">
+<img src="https://s1.ax1x.com/2020/04/09/G4vbb6.png" alt="github连接错误" title="Github连接错误" />
+</div>
+
+<p>查阅网上资料后，在存放公钥私钥(id_rsa 和 id_rsa.pub)的文件里，新建 config 文本，内容如下：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Host</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span>
+<span class="n">User</span> <span class="n">YourEmail</span><span class="mf">@163.</span><span class="n">com</span>
+<span class="n">Hostname</span> <span class="n">ssh</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">com</span>
+<span class="n">PreferredAuthentications</span> <span class="n">publickey</span>
+<span class="n">IdentityFile</span> <span class="o">~/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span>
+<span class="n">Port</span> <span class="mi">443</span>
+</code></pre></div>
+
+
+<p>再次测试，成功。</p>
+<h3>将本地 Hexo 文件更新到 GitHub 库中</h3>
+<p>登录 GitHub 打开新建的项目，复制 SSH 地址，然后修改 <code>_config.yml</code> 文件：</p>
+<ul>
+<li>找到 deploy 关键字，type 后面写上 git；</li>
+<li>补充 repository 并粘贴 SSH 地址；</li>
+<li>补充 branch，如果没有改动分支就填写 master(GitHub 的 master 好像改成了main)。</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>：所有冒号之后都有一个空格。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="err"># Deployment</span>
+<span class="err">## Docs: https://hexo.io/dics/deployment.html</span>
+<span class="c">deploy:</span>
+<span class="c">  type: git</span>
+<span class="c">  repository: git@github.com:yourname/yourname.github.io.git</span>
+<span class="c">  brance: main</span>
+</code></pre></div>
+
+
+<p>在 Hexo 文件夹中执行以下命令：</p>
+<div class="highlight"><pre><span></span><code><span class="err">hexo g</span>
+<span class="err">hexo d</span>
+</code></pre></div>
+
+
+<p>或者直接执行</p>
+<div class="highlight"><pre><span></span><code><span class="err">hexo g -d</span>
+</code></pre></div>
+
+
+<p>执行完后，发现没有找到 Deployer</p>
+<div style="text-align: center;">
+<img src="https://s1.ax1x.com/2020/04/09/G4xFVf.png" alt="Deployer not found" title="Deployer not found" />
+</div>
+
+<p>重新执行以下命令：</p>
+<div class="highlight"><pre><span></span><code><span class="err">nmp install hexo-deployer-git --save</span>
+</code></pre></div>
+
+
+<p>成功后，执行 <code>hexo g -d</code> 完成，这样博客就会部署到 GitHub 上了。</p>
+<p>最后，就可以通过地址 https://用户名.github.io 来访问博客了。</p>
+<h2>如何在博客上发表文章</h2>
+<p>现在，我们已经搭建好了属于自己的博客。下面就是如何在博客上发表文章的问题。</p>
+<p>首先，输入以下命令新建一个空文章：</p>
+<div class="highlight"><pre><span></span><code><span class="err">hexo n &quot;文章标题&quot;</span>
+</code></pre></div>
+
+
+<p>会在项目 <code>\Hexo\source\_posts</code> 中生成 文章标题.md 文件。</p>
+<p>也可以直接在 <code>\Hexo\source\_posts</code> 目录下新建 Markdown 文档。</p>
+<p>当我们编辑好了文章后，使用以下命令将其推送到服务器上：</p>
+<div class="highlight"><pre><span></span><code><span class="err">hexo d -g</span>
+</code></pre></div>
+
+
+<p>现在访问你的博客就可以看到写好的文章了。</p>
+            </div>
+            <div class="post_list">
+                <span>By </span>
+                <a href="/author/qiu-bi-zheng-nan.html">@邱彼郑楠</a>
+                <span> in </span>
+                <span class="post_category"><a href="/category/blog.html" rel="bookmark"
+                                               title="Permalink to Blog">[ Blog ]</a></span>
+                <span class="post_date">周四 09 四月 2020</span>
+                <div><span>Tags : </span>
+                            <span><a href="/tag/hexo.html">#Hexo, </a></span>
+                            <span><a href="/tag/github.html">#Github, </a></span>
+                </div>
+
+                <div class="entry-social">
+                    <span class="weibo"><a target="_blank" rel="nofollow"
+                                           onclick="javascript:window.open(this.href, '', 'mrnubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"
+                                           title="Weibo"
+                                           href="https://service.weibo.com/share/share.php?url=/blog-hexo-github.html&text=Hexo 和 Github 搭建博客&via=shushuofengyun"><img
+                            src="/theme/images/icons/weibo-s.png"></a></span>
+
+                    <span class="QQ"><a target="_blank" title="QQ" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://connect.qq.com/widget/shareqq/index.html?url=/blog-hexo-github.html&t=Hexo 和 Github 搭建博客"><img
+                            src="/theme/images/icons/qq-s.png"></a></span>
+                    
+                    <span class="QZone"><a target="_blank" title="QZone" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=/blog-hexo-github.html&t=Hexo 和 Github 搭建博客"><img
+                            src="/theme/images/icons/qzone-s.png"></a></span>
+
+                    <span class="mail"><a
+                            href="mailto:?subject=Hexo 和 Github 搭建博客&amp;body=Viens découvrir un article à propos de [Hexo 和 Github 搭建博客] sur le site de 邱彼郑楠. /blog-hexo-github.html"
+                            title="Share by Email" target="_blank"><img
+                            src="/theme/images/icons/mail-s.png"></a></span>
+
+                </div>
+            </div>
+
+            <!-- Comments -->
+
+                <div class="comments" id="comments">
+	                <!--汉化-->
+                    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                    <script src="https://billts.site/js/gitment.js"></script>
+                    <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+                    <style>
+                        .gitment-container a {
+                        border: none;
+                        }
+                        .comments {
+                        margin: 60px 0 0;padding: 0 60px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                        var gitment = new Gitment({
+                            id: '<%= article.title %>',
+                            title: '<%= article.title %>',
+                            owner: 'KristopherTsui',
+                            repo: 'KristopherTsui.github.io',
+                            oauth: {
+                                client_id: 'ca31867b8c45f8812d60',
+                                client_secret: 'bfcd43b591f425e7504c5ea3893e4ea98fee3',
+                            },
+                        })
+                        gitment.render('gitmentContainer')
+                    </script>
+                </div>
+        </article>
+    </section>
+</article>
+
+<!-- Footer -->
+    <footer>
+        <p>
+            Blog powered by <a href="http://getpelican.com/">Pelican</a>,
+            which takes great advantage of <a href="http://python.org">Python</a>.
+            Theme <a href="https://github.com/parbhat/pelican-blue">Pelican-Blue</a>.
+        </p>
+    </footer>
+
+
+<!-- Baidu Share  -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+        var bds_config = {"bdTop":289};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+
+</body>
+</html>

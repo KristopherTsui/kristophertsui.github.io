@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="zh_cn" itemscope itemtype="http://schema.org/Person">
+<head>
+            <meta charset="utf-8">
+        <!-- Site Meta Data -->
+        <title>list 双向链表容器入门</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="邱彼郑楠">
+
+        <link rel="shortcut icon" href="/extras/favicon-32x32.png">
+
+        <!-- schema.org -->
+        <meta itemprop="name" content="小崔说数">
+        <meta itemprop="image" content="">
+        <meta itemprop="description" content="">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+        <!-- Style Meta Data -->
+        <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css"/>
+
+        <!-- Feed Meta Data -->
+
+        <!-- Weibo Feed -->
+        <meta name="weibo:card" content="summary">
+        <meta name="weibo:site" content="shushuofengyun">
+        <meta name="weibo:image" content="">
+        
+        <!-- MathJax Supported -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+        <script>
+            MathJax.Hub.Config({
+                config: ["MMLorHTML.js"],
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true
+                },
+                TeX: {
+                    extensions: ["AMSmath.js", "AMSsymbols.js"],
+                    TagSide: "right",
+                    TagIndent: ".8em",
+                    MultLineWidth: "85%",
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                },
+                unicode: {
+                    fonts: "STIXGeneral,'Arial Unicode MS'"
+                }
+            },
+            displayAlign: "center",
+            showProcessingMessages: false,
+            messageStyle: 'none'
+            });
+        </script>
+
+        <!-- Prohibit F12, Ctrl+Shift+I, Ctrl+U -->
+        <script type="text/javascript">
+            document.onkeydown = function () {
+                // keyCode = 123 is F12
+                // keyCode = 73 is Ctrl + Shift + I
+                // keyCode = 85 is Ctrl + U
+                if (window.event && (window.event.keyCode == 123 || window.event.keyCode == 73 || window.event.keyCode == 85)) {
+                    event.keyCode = 0;
+                    event.returnValue = false;
+                    return false;
+                }
+            };
+        </script>
+
+    <meta name="weibo:creator" content="shushuofengyun">
+    <meta name="weibo:url" content="/cpp-list.html">
+    <meta name="weibo:title" content="小崔说数 ~ list 双向链表容器入门">
+    <meta name="weibo:description" content="今天来学习 list 双向链表容器。list 容器实现了双向链表的数据结构，数据元素通过链表指针连成线性表(逻辑意义上的)，从而，对链表任意位置上的元素进行插入、删除和查找操作都是极快速的。 list 每个节点有三个域：前驱元素指针域、数据域和后继元素指针域。前驱元素指针域保存的是前驱元素的首地址；数据域保存本节点的数据；后继元素指针域则保存后继元素的首地址。值得注意的是，list 的头节点的前驱元素指针域保存的是链表中尾元素的首地址，而 list 尾节点的后继元素指针域保存了头节点的指针域，从而构成了一个双向循环链。 另外，与 vector 不同的是，在使用迭代器的过程中，由于 list 对象的节点并不要求在一段连续的内存中，所以只能使用 ++ 或者 -- 操作将迭代器移动到后继或者前驱节点元素的位置，而不能使用 +n 或者 -n 的操作。 使用 list 需要声明头文件： #include&lt;list&gt; 创建 list …">
+
+    <!-- Facebook Meta Data -->
+    <meta property="og:title" content="小崔说数 ~ list 双向链表容器入门"/>
+    <meta property="og:description" content="今天来学习 list 双向链表容器。list 容器实现了双向链表的数据结构，数据元素通过链表指针连成线性表(逻辑意义上的)，从而，对链表任意位置上的元素进行插入、删除和查找操作都是极快速的。 list 每个节点有三个域：前驱元素指针域、数据域和后继元素指针域。前驱元素指针域保存的是前驱元素的首地址；数据域保存本节点的数据；后继元素指针域则保存后继元素的首地址。值得注意的是，list 的头节点的前驱元素指针域保存的是链表中尾元素的首地址，而 list 尾节点的后继元素指针域保存了头节点的指针域，从而构成了一个双向循环链。 另外，与 vector 不同的是，在使用迭代器的过程中，由于 list 对象的节点并不要求在一段连续的内存中，所以只能使用 ++ 或者 -- 操作将迭代器移动到后继或者前驱节点元素的位置，而不能使用 +n 或者 -n 的操作。 使用 list 需要声明头文件： #include&lt;list&gt; 创建 list …"/>
+    <meta property="og:image" content=""/>
+</head>
+
+<!-- Prohibit copy and right click -->
+<body oncontextmenu="return false" onselectstart="return false">
+<!-- Sidebar -->
+<aside>
+    <!--<center><a href=""><img id="avatar" src=""></a></center>-->
+    <h1>小崔说数</h1>
+        <p>数学知识分享和Python学习</p>
+    <br>
+
+    <nav class="nav">
+        <ul class="list-bare">
+
+                <li><a class="nav__link" href="">Home</a></li>
+                <li><a class="nav__link" href="/pages/about.html">About</a></li>
+                <li><a class="nav__link" href="/categories.html">Categories</a></li>
+
+
+        </ul>
+    </nav>
+
+    <p class="social">
+                <a href="https://github.com/KristopherTsui" target="_blank"><img
+                        src="/theme/images/icons/github.png"></a>
+                <a href="https://weibo.com/shushuofengyun" target="_blank"><img
+                        src="/theme/images/icons/weibo.png"></a>
+    </p>
+
+
+        <h2 class="blog_roll_link"><br/>BLOGROLLS</h2>
+        <ul class="navbar">
+                <li><a href="http://www.amss.ac.cn">中国科学院数学与系统科学研究院</a></li>
+                <li><a href="http://ymsc.tsinghua.edu.cn/cn">丘成桐数学科学中心</a></li>
+        </ul>
+
+</aside>
+
+<!-- Content -->
+<article>
+    <section id="content">
+        <article>
+            <h2 class="post_title post_detail"><a href="/cpp-list.html" rel="bookmark"
+                                                  title="Permalink to list 双向链表容器入门">list 双向链表容器入门</a></h2>
+            <div class="entry-content blog-post">
+                <p>今天来学习 list 双向链表容器。list 容器实现了双向链表的数据结构，数据元素通过链表指针连成线性表(逻辑意义上的)，从而，对链表任意位置上的元素进行插入、删除和查找操作都是极快速的。</p>
+<p>list 每个节点有三个<strong>域</strong>：<strong>前驱元素指针域</strong>、<strong>数据域</strong>和<strong>后继元素指针域</strong>。前驱元素指针域保存的是前驱元素的首地址；数据域保存本节点的数据；后继元素指针域则保存后继元素的首地址。值得注意的是，list 的头节点的前驱元素指针域保存的是链表中尾元素的首地址，而 list 尾节点的后继元素指针域保存了头节点的指针域，从而构成了一个双向循环链。</p>
+<p>另外，与 vector 不同的是，在使用迭代器的过程中，由于 list 对象的节点并不要求在一段连续的内存中，所以只能使用 <code>++</code> 或者 <code>--</code> 操作将迭代器移动到后继或者前驱节点元素的位置，而不能使用 <code>+n</code> 或者 <code>-n</code> 的操作。</p>
+<p>使用 list 需要声明头文件：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;list&gt;</span><span class="cp"></span>
+</code></pre></div>
+
+
+<h2>创建 list 对象</h2>
+<p>创建 list 对象有两种形式，一种直接创建一个空链表，另一种指出链表的元素个数。</p>
+<ul>
+<li>创建空链表：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+</code></pre></div>
+
+
+<ul>
+<li>创建具有 $n$ 个元素的链表：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+
+
+<h2>元素插入和遍历</h2>
+<p>向链表中插入元素的方法和其他容器类似，有以下三种方法：</p>
+<ul>
+<li>采用 <code>push_back()</code> 方法往尾部插入新元素，链表自动扩张；</li>
+<li>采用 <code>push_front()</code> 方法往首部插入新元素，链表自动扩张；</li>
+<li>采用 <code>insert()</code> 方法往<strong>迭代器位置</strong>插入新元素，链表自动扩张。</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>：迭代器只能进行 <code>++</code> 或 <code>--</code> 操作，不能进行 <code>+n</code> 或 <code>-n</code> 的操作，因为元素的位置不是物理相连的。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;list&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argc</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="c1">// 定义元素为整型的 list 对象，当前没有元素</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+    <span class="c1">// 在链表尾部插入新元素，链表自动扩张</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="c1">// 在链表头部插入新元素，链表自动扩张</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_front</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="c1">// 在任意位置插入新元素，链表自动扩张</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+    <span class="n">it</span><span class="o">++</span><span class="p">;</span> <span class="c1">// 注意，链表的迭代器只能进行自加自减操作，而不能进行+n操作</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+    <span class="c1">// 使用前向迭代器遍历链表</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+<img src="https://img-blog.csdnimg.cn/20200422104222319.png" alt="运行结果" title="运行结果" />
+</div>
+
+<h2>反向遍历</h2>
+<p>使用反向迭代器 <code>reverse_iterator</code> 对链表进行反向遍历。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;list&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="c1">// 反向遍历链表</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">reverse_iterator</span> <span class="n">rit</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">rit</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">rbegin</span><span class="p">;</span> <span class="n">rit</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">rend</span><span class="p">();</span> <span class="n">rit</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">rit</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+<img src="https://img-blog.csdnimg.cn/20200422111401147.png" alt="运行结果" title="运行结果" />
+</div>
+
+<h2>元素删除</h2>
+<p>和插入元素相对应，元素删除也可以删除迭代器位置上的元素、首元素以及尾元素。两外，还可以删除值相同的元素。</p>
+<ul>
+<li>可以使用 <code>remove()</code> 方法删除链表中一个元素，值相同的元素都会被删除。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;list&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 删除值等于 1 的所有元素</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+<img src="https://img-blog.csdnimg.cn/20200422112134962.png" alt="运行结果" title="运行结果" />
+</div>
+
+<ul>
+<li>使用 <code>pop_front()</code> 方法删除链表首元素，使用 <code>pop_back()</code> 方法删除链表尾元素。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;list&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 删除首元素</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+    <span class="c1">// 删除尾元素</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+<img src="https://img-blog.csdnimg.cn/20200422113217165.png" alt="运行结果" title="运行结果" />
+</div>
+
+<ul>
+<li>使用 <code>erase()</code> 方法删除迭代器位置上的元素。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;list&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 删除第二个元素</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+    <span class="n">it</span><span class="o">++</span><span class="p">;</span>
+    <span class="n">it</span><span class="o">++</span><span class="p">;</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+<img src="https://img-blog.csdnimg.cn/20200422114247607.png" alt="运行结果" title="运行结果" />
+</div>
+
+<ul>
+<li>使用 <code>clear()</code> 方法清空链表。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;list&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 清空链表</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+    <span class="c1">// 打印链表元素个数</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">l</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+<img src="https://img-blog.csdnimg.cn/20200422114942287.png" alt="运行结果" title="运行结果" />
+</div>
+
+<h2>元素排序</h2>
+<p>使用 <code>sort()</code> 方法可以对链表元素进行升序排列。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;list&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 使用 sort() 方法对链表进行排序，升序排列</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">sort</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+<img src="https://img-blog.csdnimg.cn/20200422120107566.png" alt="运行结果" title="运行结果" />
+</div>
+
+<h2>剔除连续重复元素</h2>
+<p>采用 <code>unique()</code> 方法可以剔除连续重复元素，只保留一个。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;list&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 提出连续重复元素(只保留一个)</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">unique</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+<img src="https://img-blog.csdnimg.cn/20200422121719341.png" alt="运行结果" title="运行结果" />
+</div>
+
+<h2>元素查找</h2>
+<p>在链表中查找元素可以使用 <code>find()</code> 查找算法，如果找到该元素，则返回该元素的迭代器位置，否则返回 <code>end()</code> 迭代器位置。</p>
+<blockquote>
+<p>注意 <code>find()</code> 查找算法需要头文件 <code>#include&lt;algorithm&gt;</code> 。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;list&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;algorithm&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">l</span><span class="p">;</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">l</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 采用 find() 查找算法在链表中查找</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;find it&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;not find it&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">l</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;find it&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;not find it&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+<img src="https://img-blog.csdnimg.cn/20200422123033234.png" alt="运行结果" title="运行结果" />
+</div>
+            </div>
+            <div class="post_list">
+                <span>By </span>
+                <a href="/author/qiu-bi-zheng-nan.html">@邱彼郑楠</a>
+                <span> in </span>
+                <span class="post_category"><a href="/category/cpp.html" rel="bookmark"
+                                               title="Permalink to Cpp">[ Cpp ]</a></span>
+                <span class="post_date">周三 22 四月 2020</span>
+                <div><span>Tags : </span>
+                            <span><a href="/tag/list.html">#List, </a></span>
+                </div>
+
+                <div class="entry-social">
+                    <span class="weibo"><a target="_blank" rel="nofollow"
+                                           onclick="javascript:window.open(this.href, '', 'mrnubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"
+                                           title="Weibo"
+                                           href="https://service.weibo.com/share/share.php?url=/cpp-list.html&text=list 双向链表容器入门&via=shushuofengyun"><img
+                            src="/theme/images/icons/weibo-s.png"></a></span>
+
+                    <span class="QQ"><a target="_blank" title="QQ" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://connect.qq.com/widget/shareqq/index.html?url=/cpp-list.html&t=list 双向链表容器入门"><img
+                            src="/theme/images/icons/qq-s.png"></a></span>
+                    
+                    <span class="QZone"><a target="_blank" title="QZone" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=/cpp-list.html&t=list 双向链表容器入门"><img
+                            src="/theme/images/icons/qzone-s.png"></a></span>
+
+                    <span class="mail"><a
+                            href="mailto:?subject=list 双向链表容器入门&amp;body=Viens découvrir un article à propos de [list 双向链表容器入门] sur le site de 邱彼郑楠. /cpp-list.html"
+                            title="Share by Email" target="_blank"><img
+                            src="/theme/images/icons/mail-s.png"></a></span>
+
+                </div>
+            </div>
+
+            <!-- Comments -->
+
+                <div class="comments" id="comments">
+	                <!--汉化-->
+                    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                    <script src="https://billts.site/js/gitment.js"></script>
+                    <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+                    <style>
+                        .gitment-container a {
+                        border: none;
+                        }
+                        .comments {
+                        margin: 60px 0 0;padding: 0 60px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                        var gitment = new Gitment({
+                            id: '<%= article.title %>',
+                            title: '<%= article.title %>',
+                            owner: 'KristopherTsui',
+                            repo: 'KristopherTsui.github.io',
+                            oauth: {
+                                client_id: 'ca31867b8c45f8812d60',
+                                client_secret: 'bfcd43b591f425e7504c5ea3893e4ea98fee3',
+                            },
+                        })
+                        gitment.render('gitmentContainer')
+                    </script>
+                </div>
+        </article>
+    </section>
+</article>
+
+<!-- Footer -->
+    <footer>
+        <p>
+            Blog powered by <a href="http://getpelican.com/">Pelican</a>,
+            which takes great advantage of <a href="http://python.org">Python</a>.
+            Theme <a href="https://github.com/parbhat/pelican-blue">Pelican-Blue</a>.
+        </p>
+    </footer>
+
+
+<!-- Baidu Share  -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+        var bds_config = {"bdTop":289};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+
+</body>
+</html>

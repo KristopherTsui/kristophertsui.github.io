@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="zh_cn" itemscope itemtype="http://schema.org/Person">
+<head>
+            <meta charset="utf-8">
+        <!-- Site Meta Data -->
+        <title>deque 双端队列容器入门</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="邱彼郑楠">
+
+        <link rel="shortcut icon" href="/extras/favicon-32x32.png">
+
+        <!-- schema.org -->
+        <meta itemprop="name" content="小崔说数">
+        <meta itemprop="image" content="">
+        <meta itemprop="description" content="">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+        <!-- Style Meta Data -->
+        <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css"/>
+
+        <!-- Feed Meta Data -->
+
+        <!-- Weibo Feed -->
+        <meta name="weibo:card" content="summary">
+        <meta name="weibo:site" content="shushuofengyun">
+        <meta name="weibo:image" content="">
+        
+        <!-- MathJax Supported -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+        <script>
+            MathJax.Hub.Config({
+                config: ["MMLorHTML.js"],
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true
+                },
+                TeX: {
+                    extensions: ["AMSmath.js", "AMSsymbols.js"],
+                    TagSide: "right",
+                    TagIndent: ".8em",
+                    MultLineWidth: "85%",
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                },
+                unicode: {
+                    fonts: "STIXGeneral,'Arial Unicode MS'"
+                }
+            },
+            displayAlign: "center",
+            showProcessingMessages: false,
+            messageStyle: 'none'
+            });
+        </script>
+
+        <!-- Prohibit F12, Ctrl+Shift+I, Ctrl+U -->
+        <script type="text/javascript">
+            document.onkeydown = function () {
+                // keyCode = 123 is F12
+                // keyCode = 73 is Ctrl + Shift + I
+                // keyCode = 85 is Ctrl + U
+                if (window.event && (window.event.keyCode == 123 || window.event.keyCode == 73 || window.event.keyCode == 85)) {
+                    event.keyCode = 0;
+                    event.returnValue = false;
+                    return false;
+                }
+            };
+        </script>
+
+    <meta name="weibo:creator" content="shushuofengyun">
+    <meta name="weibo:url" content="/cpp-deque.html">
+    <meta name="weibo:title" content="小崔说数 ~ deque 双端队列容器入门">
+    <meta name="weibo:description" content="deque 双端队列容器和 vector 向量容器相同的是采用的都是线性表顺序存储结构；不同的是 deque 双端队列容器采用分块的线性存储结构来存储数据，每块的大小一般为 512 字节，称为一个 deque 块，所有的 deque 块使用一个 Map 块进行管理，每个 Map 数据项记录各个 deque 块的首地址。 deque 块在头部和尾部都可插入和删除元素：使用 push_back() 方法在尾部插入元素，会扩张队列；使用 push_front() 方法在首部插入元素；使用 insert() 方法在中间插入元素。在考虑容器元素的容器内存分配策略和操作的性能的情况下，deque 相当于 vector 更有优势。 使用 deque 双端队列容器需要声明头文件： #include&lt;deque&gt; 创建 deque 对象 创建 deque …">
+
+    <!-- Facebook Meta Data -->
+    <meta property="og:title" content="小崔说数 ~ deque 双端队列容器入门"/>
+    <meta property="og:description" content="deque 双端队列容器和 vector 向量容器相同的是采用的都是线性表顺序存储结构；不同的是 deque 双端队列容器采用分块的线性存储结构来存储数据，每块的大小一般为 512 字节，称为一个 deque 块，所有的 deque 块使用一个 Map 块进行管理，每个 Map 数据项记录各个 deque 块的首地址。 deque 块在头部和尾部都可插入和删除元素：使用 push_back() 方法在尾部插入元素，会扩张队列；使用 push_front() 方法在首部插入元素；使用 insert() 方法在中间插入元素。在考虑容器元素的容器内存分配策略和操作的性能的情况下，deque 相当于 vector 更有优势。 使用 deque 双端队列容器需要声明头文件： #include&lt;deque&gt; 创建 deque 对象 创建 deque …"/>
+    <meta property="og:image" content=""/>
+</head>
+
+<!-- Prohibit copy and right click -->
+<body oncontextmenu="return false" onselectstart="return false">
+<!-- Sidebar -->
+<aside>
+    <!--<center><a href=""><img id="avatar" src=""></a></center>-->
+    <h1>小崔说数</h1>
+        <p>数学知识分享和Python学习</p>
+    <br>
+
+    <nav class="nav">
+        <ul class="list-bare">
+
+                <li><a class="nav__link" href="">Home</a></li>
+                <li><a class="nav__link" href="/pages/about.html">About</a></li>
+                <li><a class="nav__link" href="/categories.html">Categories</a></li>
+
+
+        </ul>
+    </nav>
+
+    <p class="social">
+                <a href="https://github.com/KristopherTsui" target="_blank"><img
+                        src="/theme/images/icons/github.png"></a>
+                <a href="https://weibo.com/shushuofengyun" target="_blank"><img
+                        src="/theme/images/icons/weibo.png"></a>
+    </p>
+
+
+        <h2 class="blog_roll_link"><br/>BLOGROLLS</h2>
+        <ul class="navbar">
+                <li><a href="http://www.amss.ac.cn">中国科学院数学与系统科学研究院</a></li>
+                <li><a href="http://ymsc.tsinghua.edu.cn/cn">丘成桐数学科学中心</a></li>
+        </ul>
+
+</aside>
+
+<!-- Content -->
+<article>
+    <section id="content">
+        <article>
+            <h2 class="post_title post_detail"><a href="/cpp-deque.html" rel="bookmark"
+                                                  title="Permalink to deque 双端队列容器入门">deque 双端队列容器入门</a></h2>
+            <div class="entry-content blog-post">
+                <p>deque 双端队列容器和 vector 向量容器相同的是采用的都是线性表顺序存储结构；不同的是 deque 双端队列容器采用分块的线性存储结构来存储数据，每块的大小一般为 512 字节，称为一个 deque 块，所有的 deque 块使用一个 Map 块进行管理，每个 Map 数据项记录各个 deque 块的首地址。</p>
+<p>deque 块在头部和尾部都可插入和删除元素：使用 <code>push_back()</code> 方法在尾部插入元素，会扩张队列；使用 <code>push_front()</code> 方法在首部插入元素；使用 <code>insert()</code> 方法在中间插入元素。在考虑容器元素的容器内存分配策略和操作的性能的情况下，deque 相当于 vector 更有优势。</p>
+<p>使用 deque 双端队列容器需要声明头文件：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+</code></pre></div>
+
+
+<h2>创建 deque 对象</h2>
+<p>创建 deque 对象和创建 vector 对象类似，一般有三种方法：</p>
+<ul>
+<li>创建没有任何元素的 deque 对象：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+<span class="n">deque</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">dd</span><span class="p">;</span>
+</code></pre></div>
+
+
+<ul>
+<li>创建具有 $n$ 个元素的 deque 对象：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+
+
+<ul>
+<li>创建具有 $n$ 个元素的 deque 对象，并赋初值：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">deque</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">);</span>
+</code></pre></div>
+
+
+<h2>插入元素</h2>
+<ul>
+<li>使用 <code>push_back()</code> 方法从尾部插入元素，会不断扩张队列。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="c1">// 定义 deque 对象，元素类型是整型</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="c1">// 从尾部连续插入三个元素</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="c1">// 以数组方式输出元素</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/20200420164459402.png" alt="运行结果" title="运行结果" />
+</div>
+
+<ul>
+<li>从头部插入元素，不会增加新元素，只将原有的元素覆盖。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="c1">// 从头部插入元素，不会添加新元素，只讲原有的元素覆盖</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_front</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_front</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>输出结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/20200420165216566.png" alt="运行结果" title="运行结果" />
+</div>
+
+<ul>
+<li>从中间插入元素，不会增加新元素，只将原有的元素覆盖。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="c1">// 中间插入元素，不会增加新元素，只讲原有的元素覆盖</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">88</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/20200420170034548.png" alt="运行结果" title="运行结果" />
+</div>
+
+<blockquote>
+<p>使用 <code>insert()</code> 方法也是要使用迭代器的，和前面几种容器使用方法一样。</p>
+</blockquote>
+<h2>前向遍历</h2>
+<p>根据前面的经验，前向遍历显然有两种方式，一种以数组方式遍历，一种以迭代器方式遍历。</p>
+<ul>
+<li>以数组方式遍历。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<ul>
+<li>以迭代器方式遍历</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">d</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/20200420164459402.png" alt="text-align: center" />
+</div>
+
+<h2>反向遍历</h2>
+<p>利用反向迭代器对双端队列容器进行反向遍历：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">reverse_iterator</span> <span class="n">rit</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">rit</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">rbegin</span><span class="p">();</span> <span class="n">rit</span> <span class="o">!=</span> <span class="n">d</span><span class="p">.</span><span class="n">rend</span><span class="p">();</span> <span class="n">rit</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">rit</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>输出结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/20200420173214244.png" alt="运行结果" title="运行结果" />
+</div>
+
+<h2>删除元素</h2>
+<p>删除元素可以从双端队列容器的首部、尾部、中部进行，另外，可以清空双端队列容器。</p>
+<ul>
+<li>采用 <code>pop_front()</code> 方法从头部删除元素。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="c1">// 从头部删除元素</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">d</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/20200420175031104.png" alt="运行结果" title="运行结果" />
+</div>
+
+<ul>
+<li>采用 <code>pop_back()</code> 方法从尾部删除元素。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="c1">// 从尾部删除元素</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">d</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/20200420180539409.png" alt="运行结果" title="运行结果" />
+</div>
+
+<ul>
+<li>使用 <code>erase()</code> 方法从中间删除元素，其参数是迭代器位置。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="c1">// 从中间删除元素，erase 的参数是迭代器位置</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">d</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/20200420181913198.png" alt="运行结果" title="运行结果" />
+</div>
+
+<ul>
+<li>使用 <code>clear()</code> 方法清空 deque 对象。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;deque&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="c1">// 清空元素</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+    <span class="c1">// 输出元素个数</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/20200420183558535.png" alt="运行结果" title="运行结果" />
+</div>
+
+<p>deque 的简单知识就差不多了，C++ STL 中的容器大同小异，只需要记住一些特定的方法就可以了。</p>
+            </div>
+            <div class="post_list">
+                <span>By </span>
+                <a href="/author/qiu-bi-zheng-nan.html">@邱彼郑楠</a>
+                <span> in </span>
+                <span class="post_category"><a href="/category/cpp.html" rel="bookmark"
+                                               title="Permalink to Cpp">[ Cpp ]</a></span>
+                <span class="post_date">周一 20 四月 2020</span>
+                <div><span>Tags : </span>
+                            <span><a href="/tag/deque.html">#Deque, </a></span>
+                </div>
+
+                <div class="entry-social">
+                    <span class="weibo"><a target="_blank" rel="nofollow"
+                                           onclick="javascript:window.open(this.href, '', 'mrnubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"
+                                           title="Weibo"
+                                           href="https://service.weibo.com/share/share.php?url=/cpp-deque.html&text=deque 双端队列容器入门&via=shushuofengyun"><img
+                            src="/theme/images/icons/weibo-s.png"></a></span>
+
+                    <span class="QQ"><a target="_blank" title="QQ" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://connect.qq.com/widget/shareqq/index.html?url=/cpp-deque.html&t=deque 双端队列容器入门"><img
+                            src="/theme/images/icons/qq-s.png"></a></span>
+                    
+                    <span class="QZone"><a target="_blank" title="QZone" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=/cpp-deque.html&t=deque 双端队列容器入门"><img
+                            src="/theme/images/icons/qzone-s.png"></a></span>
+
+                    <span class="mail"><a
+                            href="mailto:?subject=deque 双端队列容器入门&amp;body=Viens découvrir un article à propos de [deque 双端队列容器入门] sur le site de 邱彼郑楠. /cpp-deque.html"
+                            title="Share by Email" target="_blank"><img
+                            src="/theme/images/icons/mail-s.png"></a></span>
+
+                </div>
+            </div>
+
+            <!-- Comments -->
+
+                <div class="comments" id="comments">
+	                <!--汉化-->
+                    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                    <script src="https://billts.site/js/gitment.js"></script>
+                    <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+                    <style>
+                        .gitment-container a {
+                        border: none;
+                        }
+                        .comments {
+                        margin: 60px 0 0;padding: 0 60px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                        var gitment = new Gitment({
+                            id: '<%= article.title %>',
+                            title: '<%= article.title %>',
+                            owner: 'KristopherTsui',
+                            repo: 'KristopherTsui.github.io',
+                            oauth: {
+                                client_id: 'ca31867b8c45f8812d60',
+                                client_secret: 'bfcd43b591f425e7504c5ea3893e4ea98fee3',
+                            },
+                        })
+                        gitment.render('gitmentContainer')
+                    </script>
+                </div>
+        </article>
+    </section>
+</article>
+
+<!-- Footer -->
+    <footer>
+        <p>
+            Blog powered by <a href="http://getpelican.com/">Pelican</a>,
+            which takes great advantage of <a href="http://python.org">Python</a>.
+            Theme <a href="https://github.com/parbhat/pelican-blue">Pelican-Blue</a>.
+        </p>
+    </footer>
+
+
+<!-- Baidu Share  -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+        var bds_config = {"bdTop":289};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+
+</body>
+</html>

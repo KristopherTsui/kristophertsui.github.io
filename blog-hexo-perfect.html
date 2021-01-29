@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="zh_cn" itemscope itemtype="http://schema.org/Person">
+<head>
+            <meta charset="utf-8">
+        <!-- Site Meta Data -->
+        <title>搭建更美观的博客</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="邱彼郑楠">
+
+        <link rel="shortcut icon" href="/extras/favicon-32x32.png">
+
+        <!-- schema.org -->
+        <meta itemprop="name" content="小崔说数">
+        <meta itemprop="image" content="">
+        <meta itemprop="description" content="">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+        <!-- Style Meta Data -->
+        <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css"/>
+
+        <!-- Feed Meta Data -->
+
+        <!-- Weibo Feed -->
+        <meta name="weibo:card" content="summary">
+        <meta name="weibo:site" content="shushuofengyun">
+        <meta name="weibo:image" content="">
+        
+        <!-- MathJax Supported -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+        <script>
+            MathJax.Hub.Config({
+                config: ["MMLorHTML.js"],
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true
+                },
+                TeX: {
+                    extensions: ["AMSmath.js", "AMSsymbols.js"],
+                    TagSide: "right",
+                    TagIndent: ".8em",
+                    MultLineWidth: "85%",
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                },
+                unicode: {
+                    fonts: "STIXGeneral,'Arial Unicode MS'"
+                }
+            },
+            displayAlign: "center",
+            showProcessingMessages: false,
+            messageStyle: 'none'
+            });
+        </script>
+
+        <!-- Prohibit F12, Ctrl+Shift+I, Ctrl+U -->
+        <script type="text/javascript">
+            document.onkeydown = function () {
+                // keyCode = 123 is F12
+                // keyCode = 73 is Ctrl + Shift + I
+                // keyCode = 85 is Ctrl + U
+                if (window.event && (window.event.keyCode == 123 || window.event.keyCode == 73 || window.event.keyCode == 85)) {
+                    event.keyCode = 0;
+                    event.returnValue = false;
+                    return false;
+                }
+            };
+        </script>
+
+    <meta name="weibo:creator" content="shushuofengyun">
+    <meta name="weibo:url" content="/blog-hexo-perfect.html">
+    <meta name="weibo:title" content="小崔说数 ~ 搭建更美观的博客">
+    <meta name="weibo:description" content="选择主题 进入Hexo主题专栏，从中选择自己喜欢的博客主题然后进行克隆。我选择了有哪些好看的 Hexo 主题这篇中的 Huno 主题。 复制相关文件在 GitHub 上的地址，然后进行克隆： git clone git://github.com/someus/huno.git themes/huno 下载完成后配置文件 _config.yml，找到关键字 theme，修改参数为：theme: huno，然后部署主题： hexo g hexo s 感觉不错，清除缓存，将其部署到 GitHub 上： hexo clean hexo g -d 此时访问博客就可以看到更换后的主题。 另外 …">
+
+    <!-- Facebook Meta Data -->
+    <meta property="og:title" content="小崔说数 ~ 搭建更美观的博客"/>
+    <meta property="og:description" content="选择主题 进入Hexo主题专栏，从中选择自己喜欢的博客主题然后进行克隆。我选择了有哪些好看的 Hexo 主题这篇中的 Huno 主题。 复制相关文件在 GitHub 上的地址，然后进行克隆： git clone git://github.com/someus/huno.git themes/huno 下载完成后配置文件 _config.yml，找到关键字 theme，修改参数为：theme: huno，然后部署主题： hexo g hexo s 感觉不错，清除缓存，将其部署到 GitHub 上： hexo clean hexo g -d 此时访问博客就可以看到更换后的主题。 另外 …"/>
+    <meta property="og:image" content=""/>
+</head>
+
+<!-- Prohibit copy and right click -->
+<body oncontextmenu="return false" onselectstart="return false">
+<!-- Sidebar -->
+<aside>
+    <!--<center><a href=""><img id="avatar" src=""></a></center>-->
+    <h1>小崔说数</h1>
+        <p>数学知识分享和Python学习</p>
+    <br>
+
+    <nav class="nav">
+        <ul class="list-bare">
+
+                <li><a class="nav__link" href="">Home</a></li>
+                <li><a class="nav__link" href="/pages/about.html">About</a></li>
+                <li><a class="nav__link" href="/categories.html">Categories</a></li>
+
+
+        </ul>
+    </nav>
+
+    <p class="social">
+                <a href="https://github.com/KristopherTsui" target="_blank"><img
+                        src="/theme/images/icons/github.png"></a>
+                <a href="https://weibo.com/shushuofengyun" target="_blank"><img
+                        src="/theme/images/icons/weibo.png"></a>
+    </p>
+
+
+        <h2 class="blog_roll_link"><br/>BLOGROLLS</h2>
+        <ul class="navbar">
+                <li><a href="http://www.amss.ac.cn">中国科学院数学与系统科学研究院</a></li>
+                <li><a href="http://ymsc.tsinghua.edu.cn/cn">丘成桐数学科学中心</a></li>
+        </ul>
+
+</aside>
+
+<!-- Content -->
+<article>
+    <section id="content">
+        <article>
+            <h2 class="post_title post_detail"><a href="/blog-hexo-perfect.html" rel="bookmark"
+                                                  title="Permalink to 搭建更美观的博客">搭建更美观的博客</a></h2>
+            <div class="entry-content blog-post">
+                <h2>选择主题</h2>
+<p>进入<a href="https://hexo.io/themes/">Hexo主题专栏</a>，从中选择自己喜欢的博客主题然后进行克隆。我选择了<a href="https://www.zhihu.com/question/24422335">有哪些好看的 Hexo 主题</a>这篇中的 Huno 主题。</p>
+<p>复制相关文件在 GitHub 上的地址，然后进行克隆：</p>
+<div class="highlight"><pre><span></span><code><span class="err">git clone git://github.com/someus/huno.git themes/huno</span>
+</code></pre></div>
+
+
+<p>下载完成后配置文件 <code>_config.yml</code>，找到关键字 <code>theme</code>，修改参数为：<code>theme: huno</code>，然后部署主题：</p>
+<div class="highlight"><pre><span></span><code><span class="err">hexo g</span>
+<span class="err">hexo s</span>
+</code></pre></div>
+
+
+<div style="text-align: center;">
+<img src="https://i.loli.net/2020/04/09/PO5mv6lJuqz7XtV.png" alt="Huno主题" title="Huno主题" />
+</div>
+
+<p>感觉不错，清除缓存，将其部署到 GitHub 上：</p>
+<div class="highlight"><pre><span></span><code><span class="err">hexo clean</span>
+<span class="err">hexo g -d</span>
+</code></pre></div>
+
+
+<p>此时访问博客就可以看到更换后的主题。</p>
+<p>另外，还可以修改 <code>\themes\hexo</code> 文件夹下的配置文件 <code>_config.yml</code>，进行个性化的设计。</p>
+<h2>归档页面</h2>
+<p>归档页面会显示分类、标签云以及基于日期的归档。</p>
+<p>在主题的配置文件中：</p>
+<div class="highlight"><pre><span></span><code><span class="err"># Header</span>
+<span class="c">menu:</span>
+<span class="c">  首页: /#blog</span>
+<span class="c">  关于: /about</span>
+<span class="c">  归档：/archive</span>
+</code></pre></div>
+
+
+<p>创建新的 page：</p>
+<div class="highlight"><pre><span></span><code><span class="err">hexo new page archive</span>
+<span class="err">cd source/archive</span>
+<span class="err">vim index.md</span>
+</code></pre></div>
+
+
+<p>内容修改为：</p>
+<div class="highlight"><pre><span></span><code><span class="n">title</span><span class="o">:</span> <span class="err">归档</span>
+<span class="n">layout</span><span class="o">:</span> <span class="n">page</span><span class="o">-</span><span class="n">archive</span>
+<span class="o">---</span>
+</code></pre></div>
+
+
+<h2>Social Icon</h2>
+<p>默认提供 GitHub 图标，用户名在 Hexo 的配置文件中配置，例如：</p>
+<div class="highlight"><pre><span></span><code><span class="err"># Social</span>
+<span class="c">social:</span>
+<span class="c">  github: your Github name</span>
+</code></pre></div>
+
+
+<p>可以根据需要在 <code>layout/_partials/social.ejs</code> 中添加更多的图标。</p>
+<h2>访客统计</h2>
+<p>使用<a href="http://busuanzi.ibruce.info/">不蒜子</a>进行网站计数，在当前主题文件夹下的 <code>layout\_partial\footer.ejs</code> 文件中加入以下脚本：</p>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">async</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+
+
+<p>然后加入以下内容：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">本站总访问量</span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;busuanzi_value_site_pv&quot;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;次</span>
+<span class="nx">本站访客数</span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;busuanzi_value_site_uv&quot;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;人次</span>
+<span class="nx">本文总访问量</span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;busuanzi_value_page_pv&quot;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;次</span>
+</code></pre></div>
+
+
+<p>这段内容我放在了 <code>&lt;footer&gt;</code> 和 <code>&lt;/footer&gt;</code> 之间，这样的话显示的字比较小。</p>
+<p>更多相关内容请访问<a href="http://ibruce.info/2015/04/04/busuanzi/">搞定你的网站计数</a>。</p>
+<h2>图标</h2>
+<p>找到合适的图标，放在 <code>themes/theme/source/images/</code> 文件夹中，并修改主题配置文件即可。</p>
+<h2>评论</h2>
+<p>Huno 主题自身支持 Disqus 和多说，但是多说已经停止服务，Disqus 在国内无法使用。所以我找到了一篇 <a href="https://sogrey.top/article/Hexo-添加-Gitment-评论/">Hexo 添加 Gitment 评论</a> 文章，并尝试添加。</p>
+<p>首先注册 Gitment OAuth Application，填入评论页面的域名然后得到一个 client ID 和 client secret，用于之后的用户登录。</p>
+<h3>安装 Gitment 插件</h3>
+<p>使用 npm 安装确定版本的 Gitment</p>
+<div class="highlight"><pre><span></span><code><span class="err">npm install --save gitment</span>
+</code></pre></div>
+
+
+<h3>引入 Gitment</h3>
+<p>将下面代码添加到文章页面</p>
+<div class="highlight"><pre><span></span><code><span class="c">&lt;!--gitment 评论--&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;comments&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;comments&quot;</span><span class="p">&gt;</span>
+
+    <span class="c">&lt;!--汉化--&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://billts.site/extra_css/gitment.css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://billts.site/js/gitment.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="c">&lt;!--原型--&gt;</span>
+    <span class="c">&lt;!--</span>
+<span class="c">    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/style/default.css&quot;&gt;</span>
+<span class="c">    &lt;script src=&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span>
+<span class="c">    --&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;gitmentContainer&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;margin-bottom: -19px;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+        <span class="p">.</span><span class="nc">gitment-container</span> <span class="nt">a</span> <span class="p">{</span>
+          <span class="k">border</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="p">.</span><span class="nc">comments</span> <span class="p">{</span>
+          <span class="k">margin</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">;</span><span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+        <span class="kd">var</span> <span class="nx">gitment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Gitment</span><span class="p">({</span>
+              <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;&lt;%= page.title %&gt;&#39;</span><span class="p">,</span>
+              <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;&lt;%= page.title %&gt;&#39;</span><span class="p">,</span>
+              <span class="nx">owner</span><span class="o">:</span> <span class="s1">&#39;your Github name&#39;</span><span class="p">,</span>
+              <span class="nx">repo</span><span class="o">:</span> <span class="s1">&#39;yourgithubname.github.io&#39;</span><span class="p">,</span>
+              <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">client_id</span><span class="o">:</span> <span class="s1">&#39;************&#39;</span><span class="p">,</span>
+                <span class="nx">client_secret</span><span class="o">:</span> <span class="s1">&#39;************&#39;</span><span class="p">,</span>
+              <span class="p">},</span>
+        <span class="p">})</span>
+        <span class="nx">gitment</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;gitmentContainer&#39;</span><span class="p">)</span>
+      <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="c">&lt;!--gitment 评论 end--&gt;</span>
+</code></pre></div>
+
+
+<p>其中：</p>
+<ul>
+<li>id: ‘&lt;%= page.title %&gt;’,// 页面标题作为 issue 的 label，长度不超过50，否则会出现 Error：validation failed 错误提示</li>
+<li>owner 你的GitHub用户名即可</li>
+<li>repo 保存评论的GitHub仓库名</li>
+<li>client_id 你注册的Gitment Client ID [可在<a href="https://github.com/settings/developers">developers</a>找到你注册的Gitment查看]</li>
+<li>client_secret 你注册的Gitment Client secret [可在<a href="https://github.com/settings/developers">developers</a>找到你注册的Gitment查看]</li>
+<li>汉化来自<a href="https://github.com/imsun/gitment/issues/104">评论框汉化问题</a></li>
+</ul>
+<h3>主题配置</h3>
+<p>在主题的配置文件中添加以下内容：</p>
+<div class="highlight"><pre><span></span><code><span class="err"># Gitment</span>
+<span class="err"># Introduction: https://imsun.net/posts/gitment-introduction/</span>
+<span class="c">gitment:</span>
+<span class="c">  enable: true</span>
+<span class="c">  githubID: your Github name</span>
+<span class="c">  repo: yourgithubname.github.io</span>
+<span class="c">  ClientID: ************</span>
+<span class="c">  ClientSecret: *************</span>
+<span class="c">  lazy: false</span>
+</code></pre></div>
+
+
+<p>其中 lazy 表示评论懒加载，即不直接显示评论，false 则直接显示评论。</p>
+<h3>初始化评论</h3>
+<p>发布页面后，访问网页并使用自己的 Github 账户登录，点击初始化按钮。</p>
+<blockquote>
+<p><strong>注意</strong>：保证登录的账号是配置中的 repo 和 owner。只有自己先初始化后才会在对应的 Github 仓库的 issue 中创建一条对应的 issue，之后其他用户即可在该页面发表评论。</p>
+</blockquote>
+<p>现在就可以看到评论你的评论了。</p>
+<div style="text-align: center;">
+<img src="https://i.loli.net/2020/04/10/5THLoZqhCQ3mB8s.png" alt="Gitment 评论" title="Gitment 评论" />
+</div>
+            </div>
+            <div class="post_list">
+                <span>By </span>
+                <a href="/author/qiu-bi-zheng-nan.html">@邱彼郑楠</a>
+                <span> in </span>
+                <span class="post_category"><a href="/category/blog.html" rel="bookmark"
+                                               title="Permalink to Blog">[ Blog ]</a></span>
+                <span class="post_date">周五 10 四月 2020</span>
+                <div><span>Tags : </span>
+                            <span><a href="/tag/hexo.html">#Hexo, </a></span>
+                            <span><a href="/tag/gitment.html">#Gitment, </a></span>
+                </div>
+
+                <div class="entry-social">
+                    <span class="weibo"><a target="_blank" rel="nofollow"
+                                           onclick="javascript:window.open(this.href, '', 'mrnubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"
+                                           title="Weibo"
+                                           href="https://service.weibo.com/share/share.php?url=/blog-hexo-perfect.html&text=搭建更美观的博客&via=shushuofengyun"><img
+                            src="/theme/images/icons/weibo-s.png"></a></span>
+
+                    <span class="QQ"><a target="_blank" title="QQ" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://connect.qq.com/widget/shareqq/index.html?url=/blog-hexo-perfect.html&t=搭建更美观的博客"><img
+                            src="/theme/images/icons/qq-s.png"></a></span>
+                    
+                    <span class="QZone"><a target="_blank" title="QZone" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=/blog-hexo-perfect.html&t=搭建更美观的博客"><img
+                            src="/theme/images/icons/qzone-s.png"></a></span>
+
+                    <span class="mail"><a
+                            href="mailto:?subject=搭建更美观的博客&amp;body=Viens découvrir un article à propos de [搭建更美观的博客] sur le site de 邱彼郑楠. /blog-hexo-perfect.html"
+                            title="Share by Email" target="_blank"><img
+                            src="/theme/images/icons/mail-s.png"></a></span>
+
+                </div>
+            </div>
+
+            <!-- Comments -->
+
+                <div class="comments" id="comments">
+	                <!--汉化-->
+                    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                    <script src="https://billts.site/js/gitment.js"></script>
+                    <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+                    <style>
+                        .gitment-container a {
+                        border: none;
+                        }
+                        .comments {
+                        margin: 60px 0 0;padding: 0 60px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                        var gitment = new Gitment({
+                            id: '<%= article.title %>',
+                            title: '<%= article.title %>',
+                            owner: 'KristopherTsui',
+                            repo: 'KristopherTsui.github.io',
+                            oauth: {
+                                client_id: 'ca31867b8c45f8812d60',
+                                client_secret: 'bfcd43b591f425e7504c5ea3893e4ea98fee3',
+                            },
+                        })
+                        gitment.render('gitmentContainer')
+                    </script>
+                </div>
+        </article>
+    </section>
+</article>
+
+<!-- Footer -->
+    <footer>
+        <p>
+            Blog powered by <a href="http://getpelican.com/">Pelican</a>,
+            which takes great advantage of <a href="http://python.org">Python</a>.
+            Theme <a href="https://github.com/parbhat/pelican-blue">Pelican-Blue</a>.
+        </p>
+    </footer>
+
+
+<!-- Baidu Share  -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+        var bds_config = {"bdTop":289};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+
+</body>
+</html>

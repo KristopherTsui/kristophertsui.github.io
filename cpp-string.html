@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="zh_cn" itemscope itemtype="http://schema.org/Person">
+<head>
+            <meta charset="utf-8">
+        <!-- Site Meta Data -->
+        <title>string 基本字符系列容器入门</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="邱彼郑楠">
+
+        <link rel="shortcut icon" href="/extras/favicon-32x32.png">
+
+        <!-- schema.org -->
+        <meta itemprop="name" content="小崔说数">
+        <meta itemprop="image" content="">
+        <meta itemprop="description" content="">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+        <!-- Style Meta Data -->
+        <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css"/>
+
+        <!-- Feed Meta Data -->
+
+        <!-- Weibo Feed -->
+        <meta name="weibo:card" content="summary">
+        <meta name="weibo:site" content="shushuofengyun">
+        <meta name="weibo:image" content="">
+        
+        <!-- MathJax Supported -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+        <script>
+            MathJax.Hub.Config({
+                config: ["MMLorHTML.js"],
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true
+                },
+                TeX: {
+                    extensions: ["AMSmath.js", "AMSsymbols.js"],
+                    TagSide: "right",
+                    TagIndent: ".8em",
+                    MultLineWidth: "85%",
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                },
+                unicode: {
+                    fonts: "STIXGeneral,'Arial Unicode MS'"
+                }
+            },
+            displayAlign: "center",
+            showProcessingMessages: false,
+            messageStyle: 'none'
+            });
+        </script>
+
+        <!-- Prohibit F12, Ctrl+Shift+I, Ctrl+U -->
+        <script type="text/javascript">
+            document.onkeydown = function () {
+                // keyCode = 123 is F12
+                // keyCode = 73 is Ctrl + Shift + I
+                // keyCode = 85 is Ctrl + U
+                if (window.event && (window.event.keyCode == 123 || window.event.keyCode == 73 || window.event.keyCode == 85)) {
+                    event.keyCode = 0;
+                    event.returnValue = false;
+                    return false;
+                }
+            };
+        </script>
+
+    <meta name="weibo:creator" content="shushuofengyun">
+    <meta name="weibo:url" content="/cpp-string.html">
+    <meta name="weibo:title" content="小崔说数 ~ string 基本字符系列容器入门">
+    <meta name="weibo:description" content="今天继续学习 C++ 中的容器。C++ STL 提供了 string 基本字符系列容器来处理字符串，可以把 string 理解为字符串类，它提供了添加、删除、替换、查找和比较等丰富的方法。 使用 string 容器，需要头文件包含声明： #include&lt;string&gt; 创建 string 对象 #include&lt;string&gt; #include&lt;iostream&gt; using namespace std; int main(int argc, char* argv[]) { string s; cout &lt;&lt; s.length() &lt;&lt; endl; return 0; } 上述代码创建了字符串对象 s，s 是一个空字符串，其长度为 …">
+
+    <!-- Facebook Meta Data -->
+    <meta property="og:title" content="小崔说数 ~ string 基本字符系列容器入门"/>
+    <meta property="og:description" content="今天继续学习 C++ 中的容器。C++ STL 提供了 string 基本字符系列容器来处理字符串，可以把 string 理解为字符串类，它提供了添加、删除、替换、查找和比较等丰富的方法。 使用 string 容器，需要头文件包含声明： #include&lt;string&gt; 创建 string 对象 #include&lt;string&gt; #include&lt;iostream&gt; using namespace std; int main(int argc, char* argv[]) { string s; cout &lt;&lt; s.length() &lt;&lt; endl; return 0; } 上述代码创建了字符串对象 s，s 是一个空字符串，其长度为 …"/>
+    <meta property="og:image" content=""/>
+</head>
+
+<!-- Prohibit copy and right click -->
+<body oncontextmenu="return false" onselectstart="return false">
+<!-- Sidebar -->
+<aside>
+    <!--<center><a href=""><img id="avatar" src=""></a></center>-->
+    <h1>小崔说数</h1>
+        <p>数学知识分享和Python学习</p>
+    <br>
+
+    <nav class="nav">
+        <ul class="list-bare">
+
+                <li><a class="nav__link" href="">Home</a></li>
+                <li><a class="nav__link" href="/pages/about.html">About</a></li>
+                <li><a class="nav__link" href="/categories.html">Categories</a></li>
+
+
+        </ul>
+    </nav>
+
+    <p class="social">
+                <a href="https://github.com/KristopherTsui" target="_blank"><img
+                        src="/theme/images/icons/github.png"></a>
+                <a href="https://weibo.com/shushuofengyun" target="_blank"><img
+                        src="/theme/images/icons/weibo.png"></a>
+    </p>
+
+
+        <h2 class="blog_roll_link"><br/>BLOGROLLS</h2>
+        <ul class="navbar">
+                <li><a href="http://www.amss.ac.cn">中国科学院数学与系统科学研究院</a></li>
+                <li><a href="http://ymsc.tsinghua.edu.cn/cn">丘成桐数学科学中心</a></li>
+        </ul>
+
+</aside>
+
+<!-- Content -->
+<article>
+    <section id="content">
+        <article>
+            <h2 class="post_title post_detail"><a href="/cpp-string.html" rel="bookmark"
+                                                  title="Permalink to string 基本字符系列容器入门">string 基本字符系列容器入门</a></h2>
+            <div class="entry-content blog-post">
+                <p>今天继续学习 C++ 中的容器。C++ STL 提供了 string 基本字符系列容器来处理字符串，可以把 string 理解为字符串类，它提供了添加、删除、替换、查找和比较等丰富的方法。</p>
+<p>使用 string 容器，需要头文件包含声明：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+</code></pre></div>
+
+
+<h2>创建 string 对象</h2>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>上述代码创建了字符串对象 s，s 是一个空字符串，其长度为 0，运行结果为：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204340699.png" alt="运行结果" title="运行结果"/></p>
+<h2>给 string 对象赋值</h2>
+<p>给 string 对象赋值一般有两种方式：</p>
+<ul>
+<li>
+<p>直接给字符串对象赋值：</p>
+<p>```cpp</p>
+<h1>include<string></h1>
+<h1>include<iostream></h1>
+<p>using namespace std;
+int main(int argc, char* argv[])
+{
+    string s;
+    s = "hello, C++STL.";
+    cout &lt;&lt; s &lt;&lt; endl;
+    return 0;
+}
+```</p>
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204431711.png" alt="运行结果" title="运行结果" /></p>
+</li>
+<li>
+<p>把字符指针赋给一个字符串对象：</p>
+<p>```cpp</p>
+<h1>include<string></h1>
+<h1>include<iostream></h1>
+<p>using namespace std;
+int main(int argc, char* argv[])
+{
+    string s;
+    char ss[5000];
+    scanf("%s", &amp;ss);
+    // 把整个字符数组赋值给 string 对象
+    s = ss;
+    cout &lt;&lt; s &lt;&lt; endl;
+    return 0;
+}
+```</p>
+<p>在键盘上输入 ”hello,string." 后运行结果为</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204504364.png" alt="运行结果" title="运行结果" /></p>
+</li>
+</ul>
+<blockquote>
+<p><strong>补充说明</strong>：<code>scanf</code> 的输入速度比 <code>cin</code> 快得多，但 <code>scanf</code> 是 C 语言的函数，不支持 string 对象。</p>
+</blockquote>
+<h2>从 string 对象尾部添加字符</h2>
+<p>在 string 对象的尾部添加一个字符(char)，采用 "+" 操作符即可：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="sc">&#39;t&#39;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="sc">&#39;s&#39;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="sc">&#39;u&#39;</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="sc">&#39;i&#39;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204539498.png" alt="运行结果" title="运行结果" /></p>
+<h2>从 string 对象尾部追加字符串</h2>
+<p>从尾部追加的方式有两种。</p>
+<ul>
+<li>
+<p>和添加字符一样，使用 "+" 操作符：</p>
+<p>```cpp</p>
+<h1>include<string></h1>
+<h1>include<iostream></h1>
+<p>using namespace std;
+int main(int argc, char* argv[])
+{
+    string s;
+    s = s + "Kristopher";
+    s = s + "Tsui";
+    cout &lt;&lt; s &lt;&lt; endl;
+    return 0;
+}
+```</p>
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204602559.png" alt="运行结果" title="运行结果" /></p>
+</li>
+<li>
+<p>采用 <code>append()</code> 方法：</p>
+<p>```cpp</p>
+<h1>include<string></h1>
+<h1>include<iostream></h1>
+<p>using namespace std;
+int main(int argc, char* argv[])
+{
+    string s;
+    s.append("Kristopher");
+    s.append("Tsui");
+    cout &lt;&lt; s &lt;&lt; endl;
+    return 0;
+}
+```</p>
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204602559.png" alt="运行结果" title="运行结果" /></p>
+</li>
+</ul>
+<h2>给 string 对象插入字符</h2>
+<p>使用 <code>insert()</code> 方法把一个字符插入到<strong>迭代器位置</strong>之前。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;123456&quot;</span><span class="p">;</span>
+    <span class="n">string</span><span class="o">::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+    <span class="c1">// 把字符 &#39;a&#39; 插入到第一个字符前</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">it</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/2020041720465896.png" alt="运行结果" title="运行结果" /></p>
+<h2>访问 string 对象的元素</h2>
+<p>一般使用下标方式随机访问 string 对象的元素。注意，下标是从 0 开始计数的。另外，string 对象的元素是一个字符(char)。例如：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;KristopherTsui&quot;</span><span class="p">;</span>
+    <span class="c1">// 输出 string 对象的首元素</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 两个相同的字符相减值为 0</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;r&#39;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204720649.png" alt="运行结果" title="运行结果" /></p>
+<h2>删除 string 对象的元素</h2>
+<p>删除 string 对象的元素有两种情况：</p>
+<ul>
+<li>
+<p>清空一个字符串，直接赋值空字符串即可。</p>
+</li>
+<li>
+<p>删除某一区间中的所有元素，则使用 <code>erase()</code> 方法，值得注意的是，这里的区间要使用迭代器，如下例：</p>
+<p>```cpp</p>
+<h1>include<string></h1>
+<h1>include<iostream></h1>
+<p>using namespace std;
+int main(int argc, char* argv[])
+{
+    string s;
+    s = "KristopherTsui";
+    string::iterator it = s.begin();
+    s.erase(it + 3);
+    cout &lt;&lt; s &lt;&lt; endl;
+    s.erase(it， it + 4);
+    cout &lt;&lt; s &lt;&lt; endl;
+    // 清空字符串
+    s = "";
+    cout &lt;&lt; s.length() &lt;&lt; endl;
+    return 0;
+}
+```</p>
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204754787.png" alt="运行结果" title="运行结果" /></p>
+</li>
+</ul>
+<h2>返回 string 对象的长度</h2>
+<p>如前面所使用的，采用 <code>length()</code> 方法返回字符串的长度。另外，可以使用 <code>empty()</code> 方法判断字符串是否为空：如果字符串为空，则返回逻辑真，否则，返回逻辑假。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;123&quot;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204825716.png" alt="运行结果" title="运行结果" /></p>
+<h2>替换 string 对象的字符</h2>
+<p>替换 string 对象中的字符可以使用 <code>replace()</code> 方法，值得注意的是，<code>replace()</code> 方法的重载函数较多，要分清出用法，这里只给出一个常用的，如下：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;KristopherTsui&quot;</span><span class="p">;</span>
+    <span class="c1">// 从第 0 个开始，将连续的 10 个字符替换成 &quot;Joshua&quot;</span>
+    <span class="c1">// 即将 &quot;Kristopher&quot; 替换为 &quot;Joshua&quot;</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s">&quot;Joshua&quot;</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204847989.png" alt="运行结果" title="运行结果" /></p>
+<h2>搜索 string 对象的元素或子串</h2>
+<p>使用 <code>find()</code> 方法可查找字符串中的第一个字符(char，用单引号界定)或者子串(用双引号界定)，如果查到，则返回下标值，如果查不到，则返回 4294967295。</p>
+<p>同样，<code>find()</code> 方法重载函数较多，这里仅给出一例：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;Kristopher Tsui&quot;</span><span class="p">;</span>
+    <span class="c1">// 查找第一个字符 &#39;i&#39;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="sc">&#39;i&#39;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 查找第一个子串 &quot;i&quot;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;i&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 查找第一个子串 &quot;topher&quot;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;topher&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 查找第一个子串 &quot;topherT&quot;，</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;topherT&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204917731.png" alt="运行结果" title="运行结果" /></p>
+<h2>string 对象的比较</h2>
+<p>string 对象可以使用 <code>compare()</code> 方法与其它字符串进行比较。如果它比对方大，则返回 1；如果它比对方小，则返回 -1；如果两者相同，则返回 0。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;kristopher&quot;</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">&quot;kris&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">&quot;abc&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">&quot;kristopher&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="s">&quot;tsui&quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200417204943443.png" alt="运行结果" title="运行结果" /></p>
+<p>从运行结果来看，除了 1、-1、0 三个结果外，还有其他可能的结果。这是第二个字符串取原字符串的前面一部分时，两个字符串之间的长度差。</p>
+<h2>string 对象作为 vector 元素</h2>
+<p>在 <a href="https://kristophertsui.github.io/cpp-vector.html">vector 向量容器入门</a>一文中学习了 vector 容器，string 对象也可以作为 vector 向量的元素，用法类似于字符串数组。例如：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;algorithm&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Kristopher&quot;</span><span class="p">);</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Joshua&quot;</span><span class="p">);</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;Tsui&quot;</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">length</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<p><img src="https://img-blog.csdnimg.cn/2020041720503454.png" alt="运行结果" title="运行结果" /></p>
+<h2>string 对象与数值相互转换</h2>
+<p>下面这个例子说明了 string 对象与数值之间的相互转换：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">// C++方法：将数值转换成 string</span>
+<span class="n">string</span> <span class="nf">convertToString</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">ostringstream</span> <span class="n">o</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">o</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">o</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+    <span class="k">return</span> <span class="s">&quot;conversion error&quot;</span><span class="p">;</span> <span class="c1">// if error</span>
+<span class="p">}</span>
+
+<span class="c1">//C++方法：将string转换为数值</span>
+<span class="kt">double</span> <span class="nf">convertFromString</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">istringstream</span> <span class="n">i</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mf">0.0</span><span class="p">;</span> <span class="c1">// if error</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="c1">// 将数值转换为 string 的第一种方法：C方法</span>
+    <span class="kt">char</span> <span class="n">b</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+    <span class="n">string</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">sprintf</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">);</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">// 将数值转换为 string 的第二种方法：C++方法</span>
+    <span class="n">string</span> <span class="n">cc</span> <span class="o">=</span> <span class="n">convertToString</span><span class="p">(</span><span class="mi">2020</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">cc</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">// 将string转换为数值的方法：C++方法</span>
+    <span class="n">string</span> <span class="n">dd</span> <span class="o">=</span> <span class="s">&quot;2008&quot;</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="n">convertFromString</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">p</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>string 基本字符系列容器的基本知识基本上就是这些，上面这个程序中的文件流以前并没有学过，以后再补充吧。另外，还有一些和 C 语言结合的一些用法：</p>
+<ul>
+<li>使用 <code>printf</code> 输出字符串对象，要采用 <code>c_str()</code> 方法，即 <code>printf(s.c_str());</code>。</li>
+<li>使用 <code>sscanf</code> 函数可以把一个字符串按需要的方式分离出子串或者数字。</li>
+</ul>
+            </div>
+            <div class="post_list">
+                <span>By </span>
+                <a href="/author/qiu-bi-zheng-nan.html">@邱彼郑楠</a>
+                <span> in </span>
+                <span class="post_category"><a href="/category/cpp.html" rel="bookmark"
+                                               title="Permalink to Cpp">[ Cpp ]</a></span>
+                <span class="post_date">周五 17 四月 2020</span>
+                <div><span>Tags : </span>
+                            <span><a href="/tag/string.html">#String, </a></span>
+                </div>
+
+                <div class="entry-social">
+                    <span class="weibo"><a target="_blank" rel="nofollow"
+                                           onclick="javascript:window.open(this.href, '', 'mrnubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"
+                                           title="Weibo"
+                                           href="https://service.weibo.com/share/share.php?url=/cpp-string.html&text=string 基本字符系列容器入门&via=shushuofengyun"><img
+                            src="/theme/images/icons/weibo-s.png"></a></span>
+
+                    <span class="QQ"><a target="_blank" title="QQ" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://connect.qq.com/widget/shareqq/index.html?url=/cpp-string.html&t=string 基本字符系列容器入门"><img
+                            src="/theme/images/icons/qq-s.png"></a></span>
+                    
+                    <span class="QZone"><a target="_blank" title="QZone" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=/cpp-string.html&t=string 基本字符系列容器入门"><img
+                            src="/theme/images/icons/qzone-s.png"></a></span>
+
+                    <span class="mail"><a
+                            href="mailto:?subject=string 基本字符系列容器入门&amp;body=Viens découvrir un article à propos de [string 基本字符系列容器入门] sur le site de 邱彼郑楠. /cpp-string.html"
+                            title="Share by Email" target="_blank"><img
+                            src="/theme/images/icons/mail-s.png"></a></span>
+
+                </div>
+            </div>
+
+            <!-- Comments -->
+
+                <div class="comments" id="comments">
+	                <!--汉化-->
+                    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                    <script src="https://billts.site/js/gitment.js"></script>
+                    <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+                    <style>
+                        .gitment-container a {
+                        border: none;
+                        }
+                        .comments {
+                        margin: 60px 0 0;padding: 0 60px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                        var gitment = new Gitment({
+                            id: '<%= article.title %>',
+                            title: '<%= article.title %>',
+                            owner: 'KristopherTsui',
+                            repo: 'KristopherTsui.github.io',
+                            oauth: {
+                                client_id: 'ca31867b8c45f8812d60',
+                                client_secret: 'bfcd43b591f425e7504c5ea3893e4ea98fee3',
+                            },
+                        })
+                        gitment.render('gitmentContainer')
+                    </script>
+                </div>
+        </article>
+    </section>
+</article>
+
+<!-- Footer -->
+    <footer>
+        <p>
+            Blog powered by <a href="http://getpelican.com/">Pelican</a>,
+            which takes great advantage of <a href="http://python.org">Python</a>.
+            Theme <a href="https://github.com/parbhat/pelican-blue">Pelican-Blue</a>.
+        </p>
+    </footer>
+
+
+<!-- Baidu Share  -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+        var bds_config = {"bdTop":289};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+
+</body>
+</html>

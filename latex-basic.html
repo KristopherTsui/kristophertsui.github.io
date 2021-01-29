@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="zh_cn" itemscope itemtype="http://schema.org/Person">
+<head>
+            <meta charset="utf-8">
+        <!-- Site Meta Data -->
+        <title>LaTeX 学习笔记之基本使用</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="邱彼郑楠">
+
+        <link rel="shortcut icon" href="/extras/favicon-32x32.png">
+
+        <!-- schema.org -->
+        <meta itemprop="name" content="小崔说数">
+        <meta itemprop="image" content="">
+        <meta itemprop="description" content="">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+        <!-- Style Meta Data -->
+        <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css"/>
+
+        <!-- Feed Meta Data -->
+
+        <!-- Weibo Feed -->
+        <meta name="weibo:card" content="summary">
+        <meta name="weibo:site" content="shushuofengyun">
+        <meta name="weibo:image" content="">
+        
+        <!-- MathJax Supported -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+        <script>
+            MathJax.Hub.Config({
+                config: ["MMLorHTML.js"],
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true
+                },
+                TeX: {
+                    extensions: ["AMSmath.js", "AMSsymbols.js"],
+                    TagSide: "right",
+                    TagIndent: ".8em",
+                    MultLineWidth: "85%",
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                },
+                unicode: {
+                    fonts: "STIXGeneral,'Arial Unicode MS'"
+                }
+            },
+            displayAlign: "center",
+            showProcessingMessages: false,
+            messageStyle: 'none'
+            });
+        </script>
+
+        <!-- Prohibit F12, Ctrl+Shift+I, Ctrl+U -->
+        <script type="text/javascript">
+            document.onkeydown = function () {
+                // keyCode = 123 is F12
+                // keyCode = 73 is Ctrl + Shift + I
+                // keyCode = 85 is Ctrl + U
+                if (window.event && (window.event.keyCode == 123 || window.event.keyCode == 73 || window.event.keyCode == 85)) {
+                    event.keyCode = 0;
+                    event.returnValue = false;
+                    return false;
+                }
+            };
+        </script>
+
+    <meta name="weibo:creator" content="shushuofengyun">
+    <meta name="weibo:url" content="/latex-basic.html">
+    <meta name="weibo:title" content="小崔说数 ~ LaTeX 学习笔记之基本使用">
+    <meta name="weibo:description" content="学习 LaTeX 也有半年有余了，网上各种学习资料看了一篇又一篇，但是总感觉没有起多大作用，该不会的还是不会。我想了想，觉得所欠缺的就是实践。所以，我找来一篇LaTeX排版学习笔记，想要自己把这一篇文章全部打一遍，用来学习 LaTeX 的基础知识并锻炼使用 LaTeX 排版的能力。 首先来看一下我的排版效果： 下面我就总结一下 LaTeX 的基本知识： 编写一个 LaTeX 文档，首先要明确文档类别，也往往就是第一行代码 \documentclass[选项]{文档类}。文档类一般有文章(article)、书籍(book)、报告(report) 和书信(letter) 这几种选择，另外，如果要作幻灯片的话一般用 beamer。 选项往往有页面大小、字体大小、纸张方向、草稿定稿、单面双面 …">
+
+    <!-- Facebook Meta Data -->
+    <meta property="og:title" content="小崔说数 ~ LaTeX 学习笔记之基本使用"/>
+    <meta property="og:description" content="学习 LaTeX 也有半年有余了，网上各种学习资料看了一篇又一篇，但是总感觉没有起多大作用，该不会的还是不会。我想了想，觉得所欠缺的就是实践。所以，我找来一篇LaTeX排版学习笔记，想要自己把这一篇文章全部打一遍，用来学习 LaTeX 的基础知识并锻炼使用 LaTeX 排版的能力。 首先来看一下我的排版效果： 下面我就总结一下 LaTeX 的基本知识： 编写一个 LaTeX 文档，首先要明确文档类别，也往往就是第一行代码 \documentclass[选项]{文档类}。文档类一般有文章(article)、书籍(book)、报告(report) 和书信(letter) 这几种选择，另外，如果要作幻灯片的话一般用 beamer。 选项往往有页面大小、字体大小、纸张方向、草稿定稿、单面双面 …"/>
+    <meta property="og:image" content=""/>
+</head>
+
+<!-- Prohibit copy and right click -->
+<body oncontextmenu="return false" onselectstart="return false">
+<!-- Sidebar -->
+<aside>
+    <!--<center><a href=""><img id="avatar" src=""></a></center>-->
+    <h1>小崔说数</h1>
+        <p>数学知识分享和Python学习</p>
+    <br>
+
+    <nav class="nav">
+        <ul class="list-bare">
+
+                <li><a class="nav__link" href="">Home</a></li>
+                <li><a class="nav__link" href="/pages/about.html">About</a></li>
+                <li><a class="nav__link" href="/categories.html">Categories</a></li>
+
+
+        </ul>
+    </nav>
+
+    <p class="social">
+                <a href="https://github.com/KristopherTsui" target="_blank"><img
+                        src="/theme/images/icons/github.png"></a>
+                <a href="https://weibo.com/shushuofengyun" target="_blank"><img
+                        src="/theme/images/icons/weibo.png"></a>
+    </p>
+
+
+        <h2 class="blog_roll_link"><br/>BLOGROLLS</h2>
+        <ul class="navbar">
+                <li><a href="http://www.amss.ac.cn">中国科学院数学与系统科学研究院</a></li>
+                <li><a href="http://ymsc.tsinghua.edu.cn/cn">丘成桐数学科学中心</a></li>
+        </ul>
+
+</aside>
+
+<!-- Content -->
+<article>
+    <section id="content">
+        <article>
+            <h2 class="post_title post_detail"><a href="/latex-basic.html" rel="bookmark"
+                                                  title="Permalink to LaTeX 学习笔记之基本使用">LaTeX 学习笔记之基本使用</a></h2>
+            <div class="entry-content blog-post">
+                <p>学习 LaTeX 也有半年有余了，网上各种学习资料看了一篇又一篇，但是总感觉没有起多大作用，该不会的还是不会。我想了想，觉得所欠缺的就是实践。所以，我找来一篇<a href="https://wenku.baidu.com/view/096666c60c22590102029d69.html">LaTeX排版学习笔记</a>，想要自己把这一篇文章全部打一遍，用来学习 LaTeX 的基础知识并锻炼使用 LaTeX 排版的能力。</p>
+<p>首先来看一下我的排版效果：</p>
+<div style="text-align: center;">
+    <img src="https://cdn.jsdelivr.net/gh/KristopherTsui/FigureBed/images/TextEnvirenment.png" alt="文本环境" title="文本环境" />
+    <img src="https://cdn.jsdelivr.net/gh/KristopherTsui/FigureBed/images/TheoremEnvironment.png" alt="定理环境" title="定理环境" />
+    <img src="https://cdn.jsdelivr.net/gh/KristopherTsui/FigureBed/images/LeftandRightBox.png" alt="左右盒子" title="左右盒子" />
+    <img src="https://cdn.jsdelivr.net/gh/KristopherTsui/FigureBed/images/FloatingTable.png" alt="浮动表格" title="浮动表格" />
+    <img src="https://cdn.jsdelivr.net/gh/KristopherTsui/FigureBed/images/FloatingPictures.png" alt="浮动图片" title="浮动图片" />
+</div>
+
+<p>下面我就总结一下 LaTeX 的基本知识：</p>
+<p>编写一个 LaTeX 文档，首先要明确<strong>文档类别</strong>，也往往就是第一行代码 <code>\documentclass[选项]{文档类}</code>。文档类一般有<strong>文章</strong>(article)、<strong>书籍</strong>(book)、<strong>报告</strong>(report) 和<strong>书信</strong>(letter) 这几种选择，另外，如果要作幻灯片的话一般用 beamer。</p>
+<p>选项往往有<strong>页面大小</strong>、<strong>字体大小</strong>、<strong>纸张方向</strong>、<strong>草稿定稿</strong>、<strong>单面双面</strong>、<strong>新章开始</strong>等。具体的信息可以上网找到，这里就不赘述。</p>
+<p>LaTeX 一般使用 <code>pdflatex</code> 编译英文文档，而对于中文文档，使用 <code>xelatex</code> 进行编译，并且文档类中加上 <code>ctex</code>，如 <code>article</code> 改为 <code>ctexart</code>。或者可以使用 <code>ctex</code> 宏包，不过这个已经被很多人舍弃了。使用宏包的方法为 <code>\usepackage</code>。</p>
+<p>一个最简单的中文文档如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">\documentclass</span><span class="na">[UTF8]</span><span class="nb">{</span>ctexart<span class="nb">}</span>
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+中文文档测试!
+<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+</code></pre></div>
+
+
+<p>另外需要特别说明的是 LaTeX 中特殊字符的输入，这个可以见表 1。</p>
+<div style="text-align: center;">
+    <style type="text/css">
+        table, th, td { border: 1px solid silver; }
+    </style>
+    <table class="mytable">
+        <caption>表1：LaTeX 特殊字符</caption>
+        <thead>
+            <tr>
+                <td>输入</td>
+                <td>显示</td>
+                <td>输入</td>
+                <td>显示</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>\#</th>
+                <th>#</th>
+                <th>\$</th>
+                <th>$</th>
+            <tr>
+            <tr>
+                <th>\%</th>
+                <th>%</th>
+                <th>\&</th>
+                <th>&</th>
+            <tr>
+            <tr>
+                <th>\{</th>
+                <th>{</th>
+                <th>\}</th>
+                <th>}</th>
+            <tr>
+            <tr>
+                <th>\_</th>
+                <th>_</th>
+                <th>\^{}</th>
+                <th>^</th>
+            <tr>
+            <tr>
+                <th>\textless</th>
+                <th><</th>
+                <th>\textgreater</th>
+                <th>></th>
+            <tr>
+            <tr>
+                <th>\textbar</th>
+                <th>|</th>
+                <th>\textbackslash</th>
+                <th>\</th>
+            <tr>
+            <tr>
+                <th>\~{}</th>
+                <th>~</th>
+                <th></th>
+                <th></th>
+            <tr>
+        </tbody>
+    </table>
+</div>
+
+<p>接下来，就是介绍一些使用 LaTeX 写文档过程中常用的内容。</p>
+<h2>标题摘要</h2>
+<p>想要插入文章的标题、作者和日期等信息需要使用一些代码：</p>
+<div class="highlight"><pre><span></span><code><span class="k">\title</span><span class="nb">{</span>Notes on LaTeX Typesetting<span class="nb">}</span>
+<span class="k">\author</span><span class="nb">{</span>Someone<span class="nb">}</span>
+<span class="k">\date</span><span class="nb">{</span>May 2, 2020<span class="nb">}</span>
+<span class="k">\maketitle</span>
+</code></pre></div>
+
+
+<p>其中 <code>\date{}</code> 命令参数为空时，不显示日期信息。如果没有 <code>\date</code> 命令，默认显示当前日期；或者使用 <code>\date{\today}</code> 命令，也是显示当前日期。</p>
+<p>摘要部分需要放在 <code>\begin{abstract}</code> 和 <code>\end{abstract}</code> 之间。</p>
+<h2>章节目录</h2>
+<p>在 LaTeX 文档中，可以使用以下这些章节命令。</p>
+<div class="highlight"><pre><span></span><code><span class="k">\part</span><span class="nb">{</span>部分标题<span class="nb">}</span>
+<span class="k">\chapter</span><span class="nb">{</span>章节标题<span class="nb">}</span>这一章我们介绍这些内容。
+<span class="k">\section</span><span class="nb">{</span>节标题<span class="nb">}</span>这一节我们介绍这些内容。
+<span class="k">\subsection</span><span class="nb">{</span>小节标题<span class="nb">}</span>这一小节我们介绍这些内容。
+<span class="k">\subsubsection</span><span class="nb">{</span>子节标题<span class="nb">}</span>这一子节我们介绍这些内容。
+<span class="k">\paragraph</span><span class="nb">{</span>短标题<span class="nb">}</span>这一段我们介绍这些内容。
+<span class="k">\subparagraph</span><span class="nb">{</span>小段标题<span class="nb">}</span>这一小段我们介绍这些内容。
+</code></pre></div>
+
+
+<blockquote>
+<p><strong>注意</strong>：在 article 文档类中，不能使用 <code>\chapter</code> 这个命令，其它的都可以用。</p>
+</blockquote>
+<p>章节目录需要使用 <code>\tableofcomtents</code> 命令，并且需要编译两次，第一次编译会有警告，第二次编译就会正常。</p>
+<p>另外，在<strong>导言区</strong>载入 hyperref 宏包，可以让生成的文章目录有链接，点击后自动跳转到该章节，同时生成的 pdf 文档带有目录标签。</p>
+<h2>文本环境</h2>
+<p><strong>环境</strong>是在 <code>\begin</code> 和 <code>\end</code> 之间的特殊段落，不同的环境用不同的方式排版。</p>
+<p><strong>列表环境</strong>有三种，无序列表(itemize)、有序列表(enumerate) 和描述列表(description)，使用效果如下：</p>
+<div style="text-align:center;">
+<img src="https://cdn.jsdelivr.net/gh/KristopherTsui/FigureBed/images/20200502202745.png" alt="无序列表和有序列表" title="无序列表和有序列表" />
+</div>
+
+<p><strong>对齐环境</strong>分为居中对齐和单侧对齐。居中对齐可以使用 <code>center</code> 环境或者 <code>\centering</code> 命令。单侧对齐有两种，<code>flushleft</code> 和 <code>flushright</code> 环境分别得到向左对齐和向右对齐的段落。</p>
+<div style="text-align: center;">
+<img src="https://cdn.jsdelivr.net/gh/KristopherTsui/FigureBed/images/Flushleftright.png" alt="左右对齐" title="左右对齐" />
+</div>
+
+<p><strong>定理环境</strong>就是用来排版数学中的定理和推论，直接使用即可。如果想要自己的样式，可以重新定义；如果想要将定理的编号和章节联系在一起，加上 <code>[section]</code> 参数即可。</p>
+<h2>文本盒子</h2>
+<p>文本盒子我感觉是一个非常有用的东西，毕竟在 LaTeX 排版过程中，都是转换为嵌套的盒子。简单的如 <code>\mbox</code> 和 <code>\fbox</code>，其中 <code>\fbox</code> 带有边框；稍微复杂一点的 <code>\makebox</code> 和 <code>\framebox</code>，可以指定盒子的宽度，对齐方式等。也许是我见识少，标尺盒子我其实想不到有特别的用处，唯一可以想到的是在数学证明题最后可以用它表示证明结束。幻影盒子就是只占位置不显示内容，用的应该也不多。</p>
+<p>有用的应该就是两部分，<strong>段落盒子</strong>和<strong>盒子变换</strong>。在我进行排版 <a href="https://wenku.baidu.com/view/096666c60c22590102029d69.html">LaTeX 排版学习笔记</a> 这篇文章的时候，遇到的那些 LaTeX 代码，如果要显示这些代码要使用 <code>listing</code> 宏包和环境，但是显示的没有边框，显示的范围太大，很不好看。当然，这是在没有学习 <code>tcolorbox</code> 宏包之前。段落盒子有两个，一个是 <code>\parbox</code> 命令，另一个是 <code>minipage</code> 环境。两个的各种参数都一致，唯一的区别就是在于 <code>minipage</code> 环境中使用其他命令无限制，而 <code>\parbox</code> 命令生成的段落盒子中不能包含某些命令或环境，具体是哪些命令和环境我就不知道了。</p>
+<p>盒子变换中最简单的是使用 <code>\raisebox</code> 命令升高或者降低盒子的位置。另外，<code>graphics</code> 和 <code>graphicx</code> 宏包中还提供了 <code>\resizebox</code> 、<code>\scalebox</code>、<code>\reflectbox</code> 以及 <code>\rotatebox</code> 这些盒子变换的命令。都有两个参数，一个控制盒子的宽度，一个控制盒子的高度，从而实现盒子变换。</p>
+<p>这部分没有给出相应的代码，具体的可以看网上百度文库的文章。</p>
+<h2>插入表格</h2>
+<p>表格使用 <code>tabular</code> 环境，如果是浮动表格则需要在 <code>table</code> 环境中再使用 <code>tabular</code> 环境。简单的表格这里不再赘述，这里重点说一说跨列表格，如下代码：</p>
+<div class="highlight"><pre><span></span><code><span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>|c|c|c|<span class="nb">}</span>
+<span class="k">\hline</span>
+第一行 <span class="nb">&amp;</span> 第一行 <span class="nb">&amp;</span> 第一行 <span class="k">\\</span>
+<span class="k">\hline</span>
+<span class="k">\multicolumn</span><span class="nb">{</span>2<span class="nb">}{</span>|c|<span class="nb">}{</span>跨列<span class="nb">}</span> <span class="nb">&amp;</span> 第二行 <span class="k">\\</span>
+<span class="k">\hline</span>
+第三行 <span class="nb">&amp;</span> 第三行 <span class="nb">&amp;</span> 第三行 <span class="k">\\</span>
+<span class="k">\hline</span>
+<span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}</span>
+</code></pre></div>
+
+
+<p>从上面的代码可以看出，跨列表格需要使用命令 <code>\multicolumn</code>，其中，第一个参数殖指明要横跨的列数，第二个参数指明对齐和边框线，第三个参数指明该单元格的内容。具体效果如下：</p>
+<div style="text-align: center;">
+<img src="https://cdn.jsdelivr.net/gh/KristopherTsui/FigureBed/images/MulticolumnTable.png" alt="跨列表格" title="跨列表格" />
+</div>
+
+<blockquote>
+<p>跨行表格要使用 <code>multirow</code> 宏包。</p>
+</blockquote>
+<p>另外，在浮动表格中，可以使用 <code>\caption</code> 命令指明表格的名称，并得到表格的自动编号；在 <code>\caption</code> 后面用 <code>\label</code> 命令，可以给浮动表格加上标签，并可以在文章的其他地方使用 <code>\ref</code> 命令引用该表格。</p>
+<h2>插入图片</h2>
+<p>插入图片可以使用 <code>graphics</code> 或者 <code>graphicx</code> 宏包，对于小图片，可以使用 <code>\includegraphics[选项]{图形文件}</code> 命令插入图像，具体的选项可以查阅相关资料，图形文件一般都有绝对路径和相对路径两种，这就看自己喜欢哪一种了。</p>
+<p>在段落之间插入图片也是使用相同的命令，只是一般习惯上把图片居中，也就是要放在 <code>center</code> 环境中。</p>
+<p>下面重点来看一下浮动图片的插入，其实和浮动表格是相似的，只不过浮动图片需要在 <code>figure</code> 环境中。前面只是带过了浮动表格的说明，所以这里就详细讲一下浮动图片。具体看下面代码：</p>
+<div class="highlight"><pre><span></span><code><span class="k">\begin</span><span class="nb">{</span>fugure<span class="nb">}</span>[htbp!]
+<span class="k">\centering</span>
+<span class="k">\includegraphics</span><span class="na">[scale=0.3]</span><span class="nb">{</span>./somepicture.jpg<span class="nb">}</span>
+<span class="k">\caption</span><span class="nb">{</span>图片名称<span class="nb">}</span>
+<span class="k">\label</span><span class="nb">{</span>fig:float<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>figure<span class="nb">}</span>
+</code></pre></div>
+
+
+<p>首先，<code>figure</code> 后面的参数 h 是表示当前位置(here)，t 表示页面顶部(top)，b 表示页面底部(bottom)，p 表示单独一页(page)，最后的 ! 表示不管某些浮动的限制。<code>\caption</code> 是给图片加名称和编序号，使用 <code>label</code> 可以方便引用图片，这两个在表格哪里已经说过了。</p>
+<p>到这里，LaTeX 的基本使用就结束了。只要掌握这些内容，就可以排版出一篇丰富的 LaTeX 文档。如果想要让文档更加美观，则需要继续学习 LaTeX 排版的知识。</p>
+            </div>
+            <div class="post_list">
+                <span>By </span>
+                <a href="/author/qiu-bi-zheng-nan.html">@邱彼郑楠</a>
+                <span> in </span>
+                <span class="post_category"><a href="/category/latex.html" rel="bookmark"
+                                               title="Permalink to LaTeX">[ LaTeX ]</a></span>
+                <span class="post_date">周六 02 五月 2020</span>
+                <div><span>Tags : </span>
+                            <span><a href="/tag/latex.html">#LaTeX, </a></span>
+                </div>
+
+                <div class="entry-social">
+                    <span class="weibo"><a target="_blank" rel="nofollow"
+                                           onclick="javascript:window.open(this.href, '', 'mrnubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"
+                                           title="Weibo"
+                                           href="https://service.weibo.com/share/share.php?url=/latex-basic.html&text=LaTeX 学习笔记之基本使用&via=shushuofengyun"><img
+                            src="/theme/images/icons/weibo-s.png"></a></span>
+
+                    <span class="QQ"><a target="_blank" title="QQ" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://connect.qq.com/widget/shareqq/index.html?url=/latex-basic.html&t=LaTeX 学习笔记之基本使用"><img
+                            src="/theme/images/icons/qq-s.png"></a></span>
+                    
+                    <span class="QZone"><a target="_blank" title="QZone" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=/latex-basic.html&t=LaTeX 学习笔记之基本使用"><img
+                            src="/theme/images/icons/qzone-s.png"></a></span>
+
+                    <span class="mail"><a
+                            href="mailto:?subject=LaTeX 学习笔记之基本使用&amp;body=Viens découvrir un article à propos de [LaTeX 学习笔记之基本使用] sur le site de 邱彼郑楠. /latex-basic.html"
+                            title="Share by Email" target="_blank"><img
+                            src="/theme/images/icons/mail-s.png"></a></span>
+
+                </div>
+            </div>
+
+            <!-- Comments -->
+
+                <div class="comments" id="comments">
+	                <!--汉化-->
+                    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                    <script src="https://billts.site/js/gitment.js"></script>
+                    <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+                    <style>
+                        .gitment-container a {
+                        border: none;
+                        }
+                        .comments {
+                        margin: 60px 0 0;padding: 0 60px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                        var gitment = new Gitment({
+                            id: '<%= article.title %>',
+                            title: '<%= article.title %>',
+                            owner: 'KristopherTsui',
+                            repo: 'KristopherTsui.github.io',
+                            oauth: {
+                                client_id: 'ca31867b8c45f8812d60',
+                                client_secret: 'bfcd43b591f425e7504c5ea3893e4ea98fee3',
+                            },
+                        })
+                        gitment.render('gitmentContainer')
+                    </script>
+                </div>
+        </article>
+    </section>
+</article>
+
+<!-- Footer -->
+    <footer>
+        <p>
+            Blog powered by <a href="http://getpelican.com/">Pelican</a>,
+            which takes great advantage of <a href="http://python.org">Python</a>.
+            Theme <a href="https://github.com/parbhat/pelican-blue">Pelican-Blue</a>.
+        </p>
+    </footer>
+
+
+<!-- Baidu Share  -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+        var bds_config = {"bdTop":289};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+
+</body>
+</html>

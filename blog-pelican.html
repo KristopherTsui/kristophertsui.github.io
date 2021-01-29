@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="zh_cn" itemscope itemtype="http://schema.org/Person">
+<head>
+            <meta charset="utf-8">
+        <!-- Site Meta Data -->
+        <title>Pelican 重新搭建我的博客</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="邱彼郑楠">
+
+        <link rel="shortcut icon" href="/extras/favicon-32x32.png">
+
+        <!-- schema.org -->
+        <meta itemprop="name" content="小崔说数">
+        <meta itemprop="image" content="">
+        <meta itemprop="description" content="">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+        <!-- Style Meta Data -->
+        <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css"/>
+
+        <!-- Feed Meta Data -->
+
+        <!-- Weibo Feed -->
+        <meta name="weibo:card" content="summary">
+        <meta name="weibo:site" content="shushuofengyun">
+        <meta name="weibo:image" content="">
+        
+        <!-- MathJax Supported -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+        <script>
+            MathJax.Hub.Config({
+                config: ["MMLorHTML.js"],
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true
+                },
+                TeX: {
+                    extensions: ["AMSmath.js", "AMSsymbols.js"],
+                    TagSide: "right",
+                    TagIndent: ".8em",
+                    MultLineWidth: "85%",
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                },
+                unicode: {
+                    fonts: "STIXGeneral,'Arial Unicode MS'"
+                }
+            },
+            displayAlign: "center",
+            showProcessingMessages: false,
+            messageStyle: 'none'
+            });
+        </script>
+
+        <!-- Prohibit F12, Ctrl+Shift+I, Ctrl+U -->
+        <script type="text/javascript">
+            document.onkeydown = function () {
+                // keyCode = 123 is F12
+                // keyCode = 73 is Ctrl + Shift + I
+                // keyCode = 85 is Ctrl + U
+                if (window.event && (window.event.keyCode == 123 || window.event.keyCode == 73 || window.event.keyCode == 85)) {
+                    event.keyCode = 0;
+                    event.returnValue = false;
+                    return false;
+                }
+            };
+        </script>
+
+    <meta name="weibo:creator" content="shushuofengyun">
+    <meta name="weibo:url" content="/blog-pelican.html">
+    <meta name="weibo:title" content="小崔说数 ~ Pelican 重新搭建我的博客">
+    <meta name="weibo:description" content="很长时间没有更新博客了，一方面没有时间来写博客，另一方面，对原来的博客并不是很满意，所以打算重新搭建一个静态博客。由于最近一直使用的是 Python，所以打算使用 Pelican 来搭建新的博客。 快速搭建静态网站 可以查看 Pelican 4.2.0 中文文档 或者 Pelican 4.5.2官方文档 文档寻求帮助。 首先，使用 pip 工具安装 Pelican，如果没有安装 markdown 的还需要安装 markdown。 pip3 install pelican pip3 install markdown 安装完成后，新建一个项目，然后在这个项目的目录中使用 pelican-quickstart 命令初始化项目框架。 $ pelican-quickstart Welcome to pelican-quickstart v4.2.5 …">
+
+    <!-- Facebook Meta Data -->
+    <meta property="og:title" content="小崔说数 ~ Pelican 重新搭建我的博客"/>
+    <meta property="og:description" content="很长时间没有更新博客了，一方面没有时间来写博客，另一方面，对原来的博客并不是很满意，所以打算重新搭建一个静态博客。由于最近一直使用的是 Python，所以打算使用 Pelican 来搭建新的博客。 快速搭建静态网站 可以查看 Pelican 4.2.0 中文文档 或者 Pelican 4.5.2官方文档 文档寻求帮助。 首先，使用 pip 工具安装 Pelican，如果没有安装 markdown 的还需要安装 markdown。 pip3 install pelican pip3 install markdown 安装完成后，新建一个项目，然后在这个项目的目录中使用 pelican-quickstart 命令初始化项目框架。 $ pelican-quickstart Welcome to pelican-quickstart v4.2.5 …"/>
+    <meta property="og:image" content=""/>
+</head>
+
+<!-- Prohibit copy and right click -->
+<body oncontextmenu="return false" onselectstart="return false">
+<!-- Sidebar -->
+<aside>
+    <!--<center><a href=""><img id="avatar" src=""></a></center>-->
+    <h1>小崔说数</h1>
+        <p>数学知识分享和Python学习</p>
+    <br>
+
+    <nav class="nav">
+        <ul class="list-bare">
+
+                <li><a class="nav__link" href="">Home</a></li>
+                <li><a class="nav__link" href="/pages/about.html">About</a></li>
+                <li><a class="nav__link" href="/categories.html">Categories</a></li>
+
+
+        </ul>
+    </nav>
+
+    <p class="social">
+                <a href="https://github.com/KristopherTsui" target="_blank"><img
+                        src="/theme/images/icons/github.png"></a>
+                <a href="https://weibo.com/shushuofengyun" target="_blank"><img
+                        src="/theme/images/icons/weibo.png"></a>
+    </p>
+
+
+        <h2 class="blog_roll_link"><br/>BLOGROLLS</h2>
+        <ul class="navbar">
+                <li><a href="http://www.amss.ac.cn">中国科学院数学与系统科学研究院</a></li>
+                <li><a href="http://ymsc.tsinghua.edu.cn/cn">丘成桐数学科学中心</a></li>
+        </ul>
+
+</aside>
+
+<!-- Content -->
+<article>
+    <section id="content">
+        <article>
+            <h2 class="post_title post_detail"><a href="/blog-pelican.html" rel="bookmark"
+                                                  title="Permalink to Pelican 重新搭建我的博客">Pelican 重新搭建我的博客</a></h2>
+            <div class="entry-content blog-post">
+                <p>很长时间没有更新博客了，一方面没有时间来写博客，另一方面，对原来的博客并不是很满意，所以打算重新搭建一个静态博客。由于最近一直使用的是 Python，所以打算使用 Pelican 来搭建新的博客。</p>
+<h2>快速搭建静态网站</h2>
+<p>可以查看 <a href="https://www.osgeo.cn/pelican/">Pelican 4.2.0 中文文档</a> 或者 <a href="https://docs.getpelican.com/en/4.5.2/index.html">Pelican 4.5.2官方文档</a> 文档寻求帮助。</p>
+<p>首先，使用 pip 工具安装 Pelican，如果没有安装 markdown 的还需要安装 markdown。</p>
+<div class="highlight"><pre><span></span><code><span class="n">pip3</span> <span class="n">install</span> <span class="n">pelican</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">markdown</span>
+</code></pre></div>
+
+
+<p>安装完成后，新建一个项目，然后在这个项目的目录中使用 <code>pelican-quickstart</code> 命令初始化项目框架。</p>
+<div class="highlight"><pre><span></span><code>$ pelican-quickstart
+Welcome to pelican-quickstart v4.2.5.
+
+This script will <span class="nb">help</span> you create a new Pelican-based website.
+
+Please answer the following questions so this script can generate the files
+needed by Pelican.
+
+
+&gt; Where <span class="k">do</span> you want to create your new web site? <span class="o">[</span>.<span class="o">]</span>
+&gt; What will be the title of this web site? 小崔说数
+&gt; Who will be the author of this web site? 邱彼郑楠
+&gt; What will be the default language of this web site? <span class="o">[</span>Chinese <span class="o">(</span>Simplified<span class="o">)]</span> zh
+&gt; Do you want to specify a URL prefix? e.g., https://example.com   <span class="o">(</span>Y/n<span class="o">)</span> n
+&gt; Do you want to <span class="nb">enable</span> article pagination? <span class="o">(</span>Y/n<span class="o">)</span> y
+&gt; How many articles per page <span class="k">do</span> you want? <span class="o">[</span><span class="m">10</span><span class="o">]</span>
+&gt; What is your <span class="nb">time</span> zone? <span class="o">[</span>Europe/Paris<span class="o">]</span> Asia/Shanghai
+&gt; Do you want to generate a tasks.py/Makefile to automate generation and publishing? <span class="o">(</span>Y/n<span class="o">)</span> y
+&gt; Do you want to upload your website using FTP? <span class="o">(</span>y/N<span class="o">)</span> n
+&gt; Do you want to upload your website using SSH? <span class="o">(</span>y/N<span class="o">)</span> n
+&gt; Do you want to upload your website using Dropbox? <span class="o">(</span>y/N<span class="o">)</span> n
+&gt; Do you want to upload your website using S3? <span class="o">(</span>y/N<span class="o">)</span> n
+&gt; Do you want to upload your website using Rackspace Cloud Files? <span class="o">(</span>y/N<span class="o">)</span> n
+&gt; Do you want to upload your website using GitHub Pages? <span class="o">(</span>y/N<span class="o">)</span> y
+&gt; Is this your personal page <span class="o">(</span>username.github.io<span class="o">)</span>? <span class="o">(</span>y/N<span class="o">)</span> y
+Done. Your new project is available at
+</code></pre></div>
+
+
+<p>中文只能通过手动修改根目录下的 <code>pelicanconf.py</code> 文件进行设置，将 <code>DEFAULT_LANG</code> 设置为 <code>zh_cn</code> 即可。</p>
+<p>这样，一个静态网站框架就搭建好了，只需要将写好的博客放在 <code>content</code> 文件夹下，使用 <code>pelican content</code> 命令即可以生成静态网页，再使用 <code>pelican --listen</code> 启动 Web 服务登录到 http://localhost:8000 查看博客的效果。</p>
+<h2>Pelican 博客主题</h2>
+<p>登录 <a href="http://pelicanthemes.com/">Pelican 主题网站</a> 可以查看 Pelican 博客的各种主题，选择自己喜欢的 <a href="https://github.com/Parbhat/pelican-blue/tree/1dda054242f9267f4bd49891b022ac41c9ecfbe8">Pelican-Blue 主题</a>，将其克隆到本地。</p>
+<div class="highlight"><pre><span></span><code>$ git clone https://github.com/Parbhat/pelican-blue.git
+</code></pre></div>
+
+
+<p>进行相关的配置：</p>
+<div class="highlight"><pre><span></span><code><span class="err">THEME = &#39;themes/pelican-blue&#39;</span>
+<span class="err">SIDEBAR_DIGEST = &#39;侧边栏摘要&#39;</span>
+<span class="err">FAVICON = &#39;url-to-favicon&#39;</span>
+<span class="err">DISPLAY_PAGES_ON_MENU = True</span>
+</code></pre></div>
+
+
+<p>然后重新生成即可再网页中看到不一样的效果。</p>
+<h3>社交</h3>
+<p>模板中的社交提供了 <code>facebook</code>，<code>github</code>，<code>linkedin</code>，<code>twitter</code> 和 <code>mail</code>，而这其中常用的只有 <code>Github</code>，所以添加个人的 <code>Github</code> 主页。而常用的比如 CSDN 博客，博客园，微博等社交账号并没有，所以需要自己添加社交帐号的图标到主题的 <code>static/images/icons/</code> 中，然后添加自己的社交账号到 <code>Social</code> 中即可。以微博为例，</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Social widget</span>
+<span class="n">SOCIAL</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;github&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/name&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;weibo&#39;</span><span class="p">,</span> <span class="s1">&#39;https://weibo.com/name&#39;</span><span class="p">),)</span>
+</code></pre></div>
+
+
+<p>更新后左边就有了社交网站添加的图标。</p>
+<h2>数学公式渲染</h2>
+<p>我所要做的是一个主要分享数学的博客，所以不可避免会遇到各种数学公式，这就需要使用数学公式的渲染。想要实现数学公式渲染有两种方式，一种是安装 render-math 插件。查看<a href="https://github.com/barrysteyn/pelican_plugin-render_math">官方文档</a>，根据 <code>README</code> 的说明需要先安装 <code>typogrify</code> 库：</p>
+<div class="highlight"><pre><span></span><code><span class="err">pip3 install typogrify</span>
+</code></pre></div>
+
+
+<p>安装完成后，再项目的根目录下新建文件夹用来保存插件，并将 <code>render-math</code> 插件克隆到这个文件夹。</p>
+<div class="highlight"><pre><span></span><code><span class="err">git clone https://github.com/barrysteyn/pelican_plugin-render_math.git</span>
+</code></pre></div>
+
+
+<p>然后修改配置文件 <code>pelicanconf.py</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="n">PLUGIN_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;plugins&#39;</span><span class="p">]</span>
+<span class="n">PLUGINS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pelican_plugin-render_math&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+
+<p>重新生成页面并在浏览器中观看渲染的效果。第一次渲染的速度有点慢，渲染的结果也不是太好看，当然可以改变配置更加完善。</p>
+<p>第二种方式是直接修改主题的 <code>base.html</code> 文件，将下面支持数学公式的代码插入到 <code>&lt;head&gt;</code> 标签中，然后即可支持数学公式的渲染。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span>
+        <span class="nx">config</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;MMLorHTML.js&quot;</span><span class="p">],</span>
+        <span class="nx">extensions</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;tex2jax.js&quot;</span><span class="p">],</span>
+        <span class="nx">jax</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;input/TeX&quot;</span><span class="p">,</span> <span class="s2">&quot;output/HTML-CSS&quot;</span><span class="p">,</span> <span class="s2">&quot;output/NativeMML&quot;</span><span class="p">],</span>
+        <span class="nx">tex2jax</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">inlineMath</span><span class="o">:</span> <span class="p">[</span> <span class="p">[</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;$&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;\\(&quot;</span><span class="p">,</span><span class="s2">&quot;\\)&quot;</span><span class="p">]</span> <span class="p">],</span>
+            <span class="nx">displayMath</span><span class="o">:</span> <span class="p">[</span> <span class="p">[</span><span class="s1">&#39;$$&#39;</span><span class="p">,</span><span class="s1">&#39;$$&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;\\[&quot;</span><span class="p">,</span><span class="s2">&quot;\\]&quot;</span><span class="p">]</span> <span class="p">],</span>
+            <span class="nx">processEscapes</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="nx">TeX</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">extensions</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;AMSmath.js&quot;</span><span class="p">,</span> <span class="s2">&quot;AMSsymbols.js&quot;</span><span class="p">],</span>
+            <span class="nx">TagSide</span><span class="o">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span>
+            <span class="nx">TagIndent</span><span class="o">:</span> <span class="s2">&quot;.8em&quot;</span><span class="p">,</span>
+            <span class="nx">MultLineWidth</span><span class="o">:</span> <span class="s2">&quot;85%&quot;</span><span class="p">,</span>
+            <span class="nx">equationNumbers</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">autoNumber</span><span class="o">:</span> <span class="s2">&quot;AMS&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="nx">unicode</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">fonts</span><span class="o">:</span> <span class="s2">&quot;STIXGeneral,&#39;Arial Unicode MS&#39;&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nx">displayAlign</span><span class="o">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+        <span class="nx">showProcessingMessages</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">messageStyle</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span>
+    <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+
+<p>由于上述代码使用的是 CDN 服务器上的 MathJax，所以访问可能不稳定，也可以自己在本地部署一个 MathJax，具体可以参考<a href="http://kamidox.com/write-math-formula-with-mathjax.html">使用 Markdown + MathJax 在博客里插入数学公式</a>。</p>
+<h2>添加评论</h2>
+<p>Pelican 静态博客是支持 Disqus 评论的，申请 Disqus 账号然后在 <code>pelicanconf.py</code> 文件中添加如下配置语句即可：</p>
+<div class="highlight"><pre><span></span><code><span class="n">DISQUS_SITENAME</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{Shortname}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+
+<p>但是，Disqus 必须科学上网才能使用。在最开始搭建 Hexo 静态博客的时候，我使用了 GitHub Issues 的评论系统 Gitment，用了这么长时间感觉还可以，所以我依然想继续使用 Gitment 作为我的评论系统。</p>
+<p>Pelican 的主题模板中并没有配置 Gitment 评论，所以需要在 <code>article.html</code> 中添加以下内容：</p>
+<div class="highlight"><pre><span></span><code>{% if GITMENT_SITENAME %}
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;comments&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;comments&quot;</span><span class="p">&gt;</span>
+    <span class="c">&lt;!--汉化--&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://billts.site/extra_css/gitment.css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://billts.site/js/gitment.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="c">&lt;!--原型--&gt;</span>
+    <span class="c">&lt;!--</span>
+<span class="c">    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/style/default.css&quot;&gt;</span>
+<span class="c">    &lt;script src=&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span>
+<span class="c">    --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;gitmentContainer&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;margin-bottom: -19px;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+        <span class="p">.</span><span class="nc">gitment-container</span> <span class="nt">a</span> <span class="p">{</span>
+        <span class="k">border</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="p">.</span><span class="nc">comments</span> <span class="p">{</span>
+        <span class="k">margin</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">;</span><span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+        <span class="kd">var</span> <span class="nx">gitment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Gitment</span><span class="p">({</span>
+            <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;&lt;%= article.title %&gt;&#39;</span><span class="p">,</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;&lt;%= article.title %&gt;&#39;</span><span class="p">,</span>
+            <span class="nx">owner</span><span class="o">:</span> <span class="s1">&#39;{{ GITMENT_SITENAME }}&#39;</span><span class="p">,</span>
+            <span class="nx">repo</span><span class="o">:</span> <span class="s1">&#39;{{ GITMENT_SITENAME }}.github.io&#39;</span><span class="p">,</span>
+            <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">client_id</span><span class="o">:</span> <span class="s1">&#39;{{ GITMENT_ID }}&#39;</span><span class="p">,</span>
+            <span class="nx">client_secret</span><span class="o">:</span> <span class="s1">&#39;{{ GITMENT_SECRET }}&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">})</span>
+        <span class="nx">gitment</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;gitmentContainer&#39;</span><span class="p">)</span>
+    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endif %}
+</code></pre></div>
+
+
+<p>这部分内容是我修改了 Hexo 博客的代码，否则直接复制是无法使用的。然后在 <code>pelicanconf.py</code> 文件中添加以下配置：</p>
+<div class="highlight"><pre><span></span><code><span class="n">GITMENT_SITENAME</span> <span class="o">=</span> <span class="s1">&#39;yoursitename&#39;</span>
+<span class="n">GITMENT_ID</span> <span class="o">=</span> <span class="s1">&#39;************&#39;</span>
+<span class="n">GITMENT_SECRET</span> <span class="o">=</span> <span class="s1">&#39;************&#39;</span>
+</code></pre></div>
+
+
+<p>重新生成页面，就可以看到文章最下面的评论了。</p>
+<h2>为源代码加密</h2>
+<p>由于有一些配置涉及到了账号密码等信息，而这些信息是可以通过查看源代码看到的。但对源代码进行加密是比较复杂的，所以考虑禁止查看源代码。查看源代码有几种方式，分别是右键点击查看源代码，快捷键 <code>Ctrl + U</code> 或者 <code>Ctrl + Shift + I</code> 查看源代码以及 <code>F12</code>。</p>
+<p>禁止右键和禁止复制实现比较简单，在 <code>&lt;body&gt;</code> 标签中加入下列内容：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">body</span> <span class="na">oncontextmunu</span><span class="o">=</span><span class="s">&quot;return false&quot;</span> <span class="na">onselectstart</span><span class="o">=</span><span class="s">&quot;return false&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+
+<p>参考网站<a href="https://www.fujieace.com/jingyan/site-right.html">禁止右键、F12“防复制、防查看源代码、防图片下载”方法</a>，禁止 <code>F12</code> 可以通过以下方式实现：</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">onkeydown</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="mi">123</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="nx">event</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+
+<p>禁止 <code>Ctrl + U</code> 和 <code>Ctrl + Shift + I</code> 这两种方式，参考<a href="https://www.cnblogs.com/hollow/p/6380660.html">JS禁止查看网页源代码的简单实现方法</a>中的内容，然后修改了上述禁止 <code>F12</code> 操作的代码成功实现。现在这个博客就是<strong>禁止复制</strong>，<strong>禁止右键</strong>，<strong>禁止查看源代码</strong>的。当然，这些是防不住编程高手的。</p>
+            </div>
+            <div class="post_list">
+                <span>By </span>
+                <a href="/author/qiu-bi-zheng-nan.html">@邱彼郑楠</a>
+                <span> in </span>
+                <span class="post_category"><a href="/category/blog.html" rel="bookmark"
+                                               title="Permalink to Blog">[ Blog ]</a></span>
+                <span class="post_date">周五 27 十一月 2020</span>
+                <div><span>Tags : </span>
+                            <span><a href="/tag/pelican.html">#Pelican, </a></span>
+                </div>
+
+                <div class="entry-social">
+                    <span class="weibo"><a target="_blank" rel="nofollow"
+                                           onclick="javascript:window.open(this.href, '', 'mrnubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"
+                                           title="Weibo"
+                                           href="https://service.weibo.com/share/share.php?url=/blog-pelican.html&text=Pelican 重新搭建我的博客&via=shushuofengyun"><img
+                            src="/theme/images/icons/weibo-s.png"></a></span>
+
+                    <span class="QQ"><a target="_blank" title="QQ" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://connect.qq.com/widget/shareqq/index.html?url=/blog-pelican.html&t=Pelican 重新搭建我的博客"><img
+                            src="/theme/images/icons/qq-s.png"></a></span>
+                    
+                    <span class="QZone"><a target="_blank" title="QZone" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=/blog-pelican.html&t=Pelican 重新搭建我的博客"><img
+                            src="/theme/images/icons/qzone-s.png"></a></span>
+
+                    <span class="mail"><a
+                            href="mailto:?subject=Pelican 重新搭建我的博客&amp;body=Viens découvrir un article à propos de [Pelican 重新搭建我的博客] sur le site de 邱彼郑楠. /blog-pelican.html"
+                            title="Share by Email" target="_blank"><img
+                            src="/theme/images/icons/mail-s.png"></a></span>
+
+                </div>
+            </div>
+
+            <!-- Comments -->
+
+                <div class="comments" id="comments">
+	                <!--汉化-->
+                    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                    <script src="https://billts.site/js/gitment.js"></script>
+                    <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+                    <style>
+                        .gitment-container a {
+                        border: none;
+                        }
+                        .comments {
+                        margin: 60px 0 0;padding: 0 60px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                        var gitment = new Gitment({
+                            id: '<%= article.title %>',
+                            title: '<%= article.title %>',
+                            owner: 'KristopherTsui',
+                            repo: 'KristopherTsui.github.io',
+                            oauth: {
+                                client_id: 'ca31867b8c45f8812d60',
+                                client_secret: 'bfcd43b591f425e7504c5ea3893e4ea98fee3',
+                            },
+                        })
+                        gitment.render('gitmentContainer')
+                    </script>
+                </div>
+        </article>
+    </section>
+</article>
+
+<!-- Footer -->
+    <footer>
+        <p>
+            Blog powered by <a href="http://getpelican.com/">Pelican</a>,
+            which takes great advantage of <a href="http://python.org">Python</a>.
+            Theme <a href="https://github.com/parbhat/pelican-blue">Pelican-Blue</a>.
+        </p>
+    </footer>
+
+
+<!-- Baidu Share  -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+        var bds_config = {"bdTop":289};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+
+</body>
+</html>

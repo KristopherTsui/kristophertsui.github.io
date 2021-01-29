@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="zh_cn" itemscope itemtype="http://schema.org/Person">
+<head>
+            <meta charset="utf-8">
+        <!-- Site Meta Data -->
+        <title>stack 容器与 queue 容器入门</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="邱彼郑楠">
+
+        <link rel="shortcut icon" href="/extras/favicon-32x32.png">
+
+        <!-- schema.org -->
+        <meta itemprop="name" content="小崔说数">
+        <meta itemprop="image" content="">
+        <meta itemprop="description" content="">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+        <!-- Style Meta Data -->
+        <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css"/>
+
+        <!-- Feed Meta Data -->
+
+        <!-- Weibo Feed -->
+        <meta name="weibo:card" content="summary">
+        <meta name="weibo:site" content="shushuofengyun">
+        <meta name="weibo:image" content="">
+        
+        <!-- MathJax Supported -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+        <script>
+            MathJax.Hub.Config({
+                config: ["MMLorHTML.js"],
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true
+                },
+                TeX: {
+                    extensions: ["AMSmath.js", "AMSsymbols.js"],
+                    TagSide: "right",
+                    TagIndent: ".8em",
+                    MultLineWidth: "85%",
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                },
+                unicode: {
+                    fonts: "STIXGeneral,'Arial Unicode MS'"
+                }
+            },
+            displayAlign: "center",
+            showProcessingMessages: false,
+            messageStyle: 'none'
+            });
+        </script>
+
+        <!-- Prohibit F12, Ctrl+Shift+I, Ctrl+U -->
+        <script type="text/javascript">
+            document.onkeydown = function () {
+                // keyCode = 123 is F12
+                // keyCode = 73 is Ctrl + Shift + I
+                // keyCode = 85 is Ctrl + U
+                if (window.event && (window.event.keyCode == 123 || window.event.keyCode == 73 || window.event.keyCode == 85)) {
+                    event.keyCode = 0;
+                    event.returnValue = false;
+                    return false;
+                }
+            };
+        </script>
+
+    <meta name="weibo:creator" content="shushuofengyun">
+    <meta name="weibo:url" content="/cpp-stack-queue.html">
+    <meta name="weibo:title" content="小崔说数 ~ stack 容器与 queue 容器入门">
+    <meta name="weibo:description" content="学习了五种常用的容器，还剩下 stack 堆栈容器和 queue 队列容器没有学习。今天就来学习这两种容器。 stack 堆栈容器 stack 堆栈是一个后进先出(Last In First Out，LIFO) 的线性表，插入和删除元素都只能在表的一端进行。插入元素的一端称为栈顶(Stack Top)，而另一端则称为栈底(Stack Bottom)。插入元素叫入栈(Push)，元素的删除则称为出栈(Pop)。 使用 stack，需要头文件声明： #include&lt;stack&gt; 堆栈的使用方法 堆栈只提供入栈、出栈、栈顶元素访问和判断是否为空等几种方法。 采用 push() 方法将元素入栈； 采用 pop() 方法出栈； 采用 top …">
+
+    <!-- Facebook Meta Data -->
+    <meta property="og:title" content="小崔说数 ~ stack 容器与 queue 容器入门"/>
+    <meta property="og:description" content="学习了五种常用的容器，还剩下 stack 堆栈容器和 queue 队列容器没有学习。今天就来学习这两种容器。 stack 堆栈容器 stack 堆栈是一个后进先出(Last In First Out，LIFO) 的线性表，插入和删除元素都只能在表的一端进行。插入元素的一端称为栈顶(Stack Top)，而另一端则称为栈底(Stack Bottom)。插入元素叫入栈(Push)，元素的删除则称为出栈(Pop)。 使用 stack，需要头文件声明： #include&lt;stack&gt; 堆栈的使用方法 堆栈只提供入栈、出栈、栈顶元素访问和判断是否为空等几种方法。 采用 push() 方法将元素入栈； 采用 pop() 方法出栈； 采用 top …"/>
+    <meta property="og:image" content=""/>
+</head>
+
+<!-- Prohibit copy and right click -->
+<body oncontextmenu="return false" onselectstart="return false">
+<!-- Sidebar -->
+<aside>
+    <!--<center><a href=""><img id="avatar" src=""></a></center>-->
+    <h1>小崔说数</h1>
+        <p>数学知识分享和Python学习</p>
+    <br>
+
+    <nav class="nav">
+        <ul class="list-bare">
+
+                <li><a class="nav__link" href="">Home</a></li>
+                <li><a class="nav__link" href="/pages/about.html">About</a></li>
+                <li><a class="nav__link" href="/categories.html">Categories</a></li>
+
+
+        </ul>
+    </nav>
+
+    <p class="social">
+                <a href="https://github.com/KristopherTsui" target="_blank"><img
+                        src="/theme/images/icons/github.png"></a>
+                <a href="https://weibo.com/shushuofengyun" target="_blank"><img
+                        src="/theme/images/icons/weibo.png"></a>
+    </p>
+
+
+        <h2 class="blog_roll_link"><br/>BLOGROLLS</h2>
+        <ul class="navbar">
+                <li><a href="http://www.amss.ac.cn">中国科学院数学与系统科学研究院</a></li>
+                <li><a href="http://ymsc.tsinghua.edu.cn/cn">丘成桐数学科学中心</a></li>
+        </ul>
+
+</aside>
+
+<!-- Content -->
+<article>
+    <section id="content">
+        <article>
+            <h2 class="post_title post_detail"><a href="/cpp-stack-queue.html" rel="bookmark"
+                                                  title="Permalink to stack 容器与 queue 容器入门">stack 容器与 queue 容器入门</a></h2>
+            <div class="entry-content blog-post">
+                <p>学习了五种常用的容器，还剩下 stack 堆栈容器和 queue 队列容器没有学习。今天就来学习这两种容器。</p>
+<h2>stack 堆栈容器</h2>
+<p>stack 堆栈是一个<strong>后进先出</strong>(Last In First Out，LIFO) 的线性表，插入和删除元素都只能在表的一端进行。插入元素的一端称为<strong>栈顶</strong>(Stack Top)，而另一端则称为<strong>栈底</strong>(Stack Bottom)。插入元素叫<strong>入栈</strong>(Push)，元素的删除则称为<strong>出栈</strong>(Pop)。</p>
+<p>使用 stack，需要头文件声明：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;stack&gt;</span><span class="cp"></span>
+</code></pre></div>
+
+
+<h3>堆栈的使用方法</h3>
+<p>堆栈只提供入栈、出栈、栈顶元素访问和判断是否为空等几种方法。</p>
+<ul>
+<li>采用 <code>push()</code> 方法将元素入栈；</li>
+<li>采用 <code>pop()</code> 方法出栈；</li>
+<li>采用 <code>top()</code> 方法访问栈顶元素；</li>
+<li>采用 <code>empty()</code> 方法判断堆栈是否为空；</li>
+<li>采用 <code>size()</code> 方法返回当前堆栈中有几种元素。</li>
+</ul>
+<p>下面的程序展示了各种方法的使用：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;stack&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="c1">// 定义堆栈s，其元素类型为整型</span>
+    <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
+    <span class="c1">// 元素入栈</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="c1">// 读取栈顶元素</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">top</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 返回堆栈元素数量</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 删除所有元素</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">!=</span> <span class="nb">true</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">top</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 判断堆栈是否为空</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/20200424113743553.png" alt="运行结果" title="运行结果" />
+</div>
+
+<h2>queue 队列容器</h2>
+<p>queue 队列容器是一个<strong>先进先出</strong>(First In First Out，FIFO) 的线性存储表，元素的插入只能在队尾，元素的删除只能在队首。</p>
+<p>queue 需要声明头文件：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;queue&gt;</span><span class="cp"></span>
+</code></pre></div>
+
+
+<h3>queue 队列的使用方法</h3>
+<p>queue 队列具有入队 <code>push()</code> (即插入元素)、出队 <code>pop()</code> (即删除元素)、读取队首元素 <code>front()</code>、读取队尾元素 <code>back()</code>、判断队列是否为空 <code>empty()</code> 和队列当前元素的数目 <code>size()</code> 这几种方法。</p>
+<p>下面这段程序展示了各种方法的使用方法：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;queue&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="c1">// 定义队列，元素类型是整型</span>
+    <span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+    <span class="c1">// 入队，即插入元素</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    <span class="c1">// 返回队列元素数量</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 读取队尾元素</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">back</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 读取队首元素</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 删除所有元素</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">!=</span> <span class="nb">true</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+        <span class="c1">// 队首元素出队</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="c1">// 队列是否为空</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>运行结果：</p>
+<div style="text-align: center;">
+    <img src="https://img-blog.csdnimg.cn/2020042414304915.png" alt="运行结果" title="运行结果" />
+</div>
+
+<p>到此，C++ STL的常用的容器基本上就介绍完了，有了这些基本的容器，就可以编写更加高效的代码。但学无止境，C++ 中还有许多没有学习的知识，以后慢慢学习进步。</p>
+            </div>
+            <div class="post_list">
+                <span>By </span>
+                <a href="/author/qiu-bi-zheng-nan.html">@邱彼郑楠</a>
+                <span> in </span>
+                <span class="post_category"><a href="/category/cpp.html" rel="bookmark"
+                                               title="Permalink to Cpp">[ Cpp ]</a></span>
+                <span class="post_date">周五 24 四月 2020</span>
+                <div><span>Tags : </span>
+                            <span><a href="/tag/stack.html">#Stack, </a></span>
+                            <span><a href="/tag/queue.html">#Queue, </a></span>
+                </div>
+
+                <div class="entry-social">
+                    <span class="weibo"><a target="_blank" rel="nofollow"
+                                           onclick="javascript:window.open(this.href, '', 'mrnubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"
+                                           title="Weibo"
+                                           href="https://service.weibo.com/share/share.php?url=/cpp-stack-queue.html&text=stack 容器与 queue 容器入门&via=shushuofengyun"><img
+                            src="/theme/images/icons/weibo-s.png"></a></span>
+
+                    <span class="QQ"><a target="_blank" title="QQ" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://connect.qq.com/widget/shareqq/index.html?url=/cpp-stack-queue.html&t=stack 容器与 queue 容器入门"><img
+                            src="/theme/images/icons/qq-s.png"></a></span>
+                    
+                    <span class="QZone"><a target="_blank" title="QZone" rel="nofollow"
+                                              onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"
+                                              href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=/cpp-stack-queue.html&t=stack 容器与 queue 容器入门"><img
+                            src="/theme/images/icons/qzone-s.png"></a></span>
+
+                    <span class="mail"><a
+                            href="mailto:?subject=stack 容器与 queue 容器入门&amp;body=Viens découvrir un article à propos de [stack 容器与 queue 容器入门] sur le site de 邱彼郑楠. /cpp-stack-queue.html"
+                            title="Share by Email" target="_blank"><img
+                            src="/theme/images/icons/mail-s.png"></a></span>
+
+                </div>
+            </div>
+
+            <!-- Comments -->
+
+                <div class="comments" id="comments">
+	                <!--汉化-->
+                    <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                    <script src="https://billts.site/js/gitment.js"></script>
+                    <div id="gitmentContainer" style="margin-bottom: -19px;"></div>
+                    <style>
+                        .gitment-container a {
+                        border: none;
+                        }
+                        .comments {
+                        margin: 60px 0 0;padding: 0 60px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                        var gitment = new Gitment({
+                            id: '<%= article.title %>',
+                            title: '<%= article.title %>',
+                            owner: 'KristopherTsui',
+                            repo: 'KristopherTsui.github.io',
+                            oauth: {
+                                client_id: 'ca31867b8c45f8812d60',
+                                client_secret: 'bfcd43b591f425e7504c5ea3893e4ea98fee3',
+                            },
+                        })
+                        gitment.render('gitmentContainer')
+                    </script>
+                </div>
+        </article>
+    </section>
+</article>
+
+<!-- Footer -->
+    <footer>
+        <p>
+            Blog powered by <a href="http://getpelican.com/">Pelican</a>,
+            which takes great advantage of <a href="http://python.org">Python</a>.
+            Theme <a href="https://github.com/parbhat/pelican-blue">Pelican-Blue</a>.
+        </p>
+    </footer>
+
+
+<!-- Baidu Share  -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+        var bds_config = {"bdTop":289};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+
+</body>
+</html>
