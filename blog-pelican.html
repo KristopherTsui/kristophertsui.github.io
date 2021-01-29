@@ -21,6 +21,8 @@
         <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css"/>
 
         <!-- Feed Meta Data -->
+            <link href="/feeds/all.rss.xml" type="application/atom+xml" rel="alternate"
+                  title="小崔说数 ATOM Feed"/>
 
         <!-- Weibo Feed -->
         <meta name="weibo:card" content="summary">
@@ -107,13 +109,16 @@
                         src="/theme/images/icons/github.png"></a>
                 <a href="https://weibo.com/shushuofengyun" target="_blank"><img
                         src="/theme/images/icons/weibo.png"></a>
+            <a href="/feeds/all.rss.xml" rel="alternate">
+                <img src="/theme/images/icons/rss.png"></a>
     </p>
 
 
         <h2 class="blog_roll_link"><br/>BLOGROLLS</h2>
         <ul class="navbar">
-                <li><a href="http://www.amss.ac.cn">中国科学院数学与系统科学研究院</a></li>
+                <li><a href="http://www.amss.ac.cn">数学与系统科学研究院</a></li>
                 <li><a href="http://ymsc.tsinghua.edu.cn/cn">丘成桐数学科学中心</a></li>
+                <li><a href="http://xiammt.xjtu.edu.cn/">国家天元数学西北中心</a></li>
         </ul>
 
 </aside>
@@ -173,7 +178,7 @@ Done. Your new project is available at
 
 
 <p>进行相关的配置：</p>
-<div class="highlight"><pre><span></span><code><span class="err">THEME = &#39;themes/pelican-blue&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="err">THEME = &#39;themes/Pelican-Blue&#39;</span>
 <span class="err">SIDEBAR_DIGEST = &#39;侧边栏摘要&#39;</span>
 <span class="err">FAVICON = &#39;url-to-favicon&#39;</span>
 <span class="err">DISPLAY_PAGES_ON_MENU = True</span>
@@ -181,7 +186,7 @@ Done. Your new project is available at
 
 
 <p>然后重新生成即可再网页中看到不一样的效果。</p>
-<h3>社交</h3>
+<h2>社交</h2>
 <p>模板中的社交提供了 <code>facebook</code>，<code>github</code>，<code>linkedin</code>，<code>twitter</code> 和 <code>mail</code>，而这其中常用的只有 <code>Github</code>，所以添加个人的 <code>Github</code> 主页。而常用的比如 CSDN 博客，博客园，微博等社交账号并没有，所以需要自己添加社交帐号的图标到主题的 <code>static/images/icons/</code> 中，然后添加自己的社交账号到 <code>Social</code> 中即可。以微博为例，</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Social widget</span>
 <span class="n">SOCIAL</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;github&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/name&#39;</span><span class="p">),</span>
@@ -247,53 +252,36 @@ Done. Your new project is available at
 </code></pre></div>
 
 
-<p>但是，Disqus 必须科学上网才能使用。在最开始搭建 Hexo 静态博客的时候，我使用了 GitHub Issues 的评论系统 Gitment，用了这么长时间感觉还可以，所以我依然想继续使用 Gitment 作为我的评论系统。</p>
-<p>Pelican 的主题模板中并没有配置 Gitment 评论，所以需要在 <code>article.html</code> 中添加以下内容：</p>
-<div class="highlight"><pre><span></span><code>{% if GITMENT_SITENAME %}
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;comments&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;comments&quot;</span><span class="p">&gt;</span>
-    <span class="c">&lt;!--汉化--&gt;</span>
-    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://billts.site/extra_css/gitment.css&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://billts.site/js/gitment.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-    <span class="c">&lt;!--原型--&gt;</span>
-    <span class="c">&lt;!--</span>
-<span class="c">    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/style/default.css&quot;&gt;</span>
-<span class="c">    &lt;script src=&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span>
-<span class="c">    --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;gitmentContainer&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;margin-bottom: -19px;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-        <span class="p">.</span><span class="nc">gitment-container</span> <span class="nt">a</span> <span class="p">{</span>
-        <span class="k">border</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="p">.</span><span class="nc">comments</span> <span class="p">{</span>
-        <span class="k">margin</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">;</span><span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
-        <span class="kd">var</span> <span class="nx">gitment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Gitment</span><span class="p">({</span>
-            <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;&lt;%= article.title %&gt;&#39;</span><span class="p">,</span>
-            <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;&lt;%= article.title %&gt;&#39;</span><span class="p">,</span>
-            <span class="nx">owner</span><span class="o">:</span> <span class="s1">&#39;{{ GITMENT_SITENAME }}&#39;</span><span class="p">,</span>
-            <span class="nx">repo</span><span class="o">:</span> <span class="s1">&#39;{{ GITMENT_SITENAME }}.github.io&#39;</span><span class="p">,</span>
-            <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">client_id</span><span class="o">:</span> <span class="s1">&#39;{{ GITMENT_ID }}&#39;</span><span class="p">,</span>
-            <span class="nx">client_secret</span><span class="o">:</span> <span class="s1">&#39;{{ GITMENT_SECRET }}&#39;</span><span class="p">,</span>
-            <span class="p">},</span>
-        <span class="p">})</span>
-        <span class="nx">gitment</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;gitmentContainer&#39;</span><span class="p">)</span>
-    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<p>但是，Disqus 必须科学上网才能使用。在最开始搭建 Hexo 静态博客的时候，我使用了 GitHub Issues 的评论系统 Gitment，当我准备再次将 Gitment 作为我的评论系统时，发现无法初始化评论，总是出现 <code>[Process event]</code> 的错误，大概是服务关了，无法使用了。所以，放弃了 Gitment 评论系统而选择了和它十分相似的 Gitalk 评论系统。</p>
+<p>Pelican 的主题模板中并没有配置 Gitalk 评论，所以需要在 <code>article.html</code> 中添加以下内容：</p>
+<div class="highlight"><pre><span></span><code>{% if GITALK_SITENAME %}
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://priesttomb.github.io/js/md5.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;gitalk-container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">gitalk</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Gitalk</span><span class="p">({</span>
+        <span class="nx">clientID</span><span class="o">:</span> <span class="s1">&#39;{{ GITALK_ID }}&#39;</span><span class="p">,</span>
+        <span class="nx">clientSecret</span><span class="o">:</span> <span class="s1">&#39;{{ GITALK_SECRET }}&#39;</span><span class="p">,</span>
+        <span class="nx">repo</span><span class="o">:</span> <span class="s1">&#39;{{ GITALK_SITENAME }}.github.io&#39;</span><span class="p">,</span>
+        <span class="nx">owner</span><span class="o">:</span> <span class="s1">&#39;{{ GITALK_SITENAME }}&#39;</span><span class="p">,</span>          
+        <span class="nx">admin</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;{{GITALK_SITENAME }}&#39;</span><span class="p">],</span>        
+        <span class="nx">id</span><span class="o">:</span> <span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span><span class="p">,</span>
+    <span class="p">});</span>
+    <span class="nx">gitalk</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;gitalk-container&#39;</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 {% endif %}
 </code></pre></div>
 
 
-<p>这部分内容是我修改了 Hexo 博客的代码，否则直接复制是无法使用的。然后在 <code>pelicanconf.py</code> 文件中添加以下配置：</p>
-<div class="highlight"><pre><span></span><code><span class="n">GITMENT_SITENAME</span> <span class="o">=</span> <span class="s1">&#39;yoursitename&#39;</span>
-<span class="n">GITMENT_ID</span> <span class="o">=</span> <span class="s1">&#39;************&#39;</span>
-<span class="n">GITMENT_SECRET</span> <span class="o">=</span> <span class="s1">&#39;************&#39;</span>
+<p>Gitalk 帮助可以查看<a href="https://github.com/gitalk/gitalk/blob/master/readme-cn.md">中文说明</a>。然后在 <code>pelicanconf.py</code> 文件中添加以下配置：</p>
+<div class="highlight"><pre><span></span><code><span class="n">GITALK_SITENAME</span> <span class="o">=</span> <span class="s1">&#39;yoursitename&#39;</span>
+<span class="n">GITALK_ID</span> <span class="o">=</span> <span class="s1">&#39;************&#39;</span>
+<span class="n">GITALK_SECRET</span> <span class="o">=</span> <span class="s1">&#39;************&#39;</span>
 </code></pre></div>
 
 
-<p>重新生成页面，就可以看到文章最下面的评论了。</p>
+<p>重新生成页面，登录 Github 账户初始化评论，就可以了。</p>
 <h2>为源代码加密</h2>
 <p>由于有一些配置涉及到了账号密码等信息，而这些信息是可以通过查看源代码看到的。但对源代码进行加密是比较复杂的，所以考虑禁止查看源代码。查看源代码有几种方式，分别是右键点击查看源代码，快捷键 <code>Ctrl + U</code> 或者 <code>Ctrl + Shift + I</code> 查看源代码以及 <code>F12</code>。</p>
 <p>禁止右键和禁止复制实现比较简单，在 <code>&lt;body&gt;</code> 标签中加入下列内容：</p>
@@ -353,8 +341,6 @@ Done. Your new project is available at
             </div>
 
             <!-- Comments -->
-
-
             <link rel="stylesheet" href="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
             <script src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
             <script src="https://priesttomb.github.io/js/md5.min.js"></script>
@@ -364,7 +350,6 @@ Done. Your new project is available at
                     clientID: 'ca31867b8c45f8812d60',
                     clientSecret: '3791b92392552d1c9fca8437b4fcc4c191084fe3',
                     repo: 'KristopherTsui.github.io',
-                    token: '',
                     owner: 'KristopherTsui',          
                     admin: ['KristopherTsui'],        
                     id: location.pathname,
